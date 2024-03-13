@@ -5,10 +5,10 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
       options: FirebaseOptions(
-          apiKey: "",
-          appId: "",
-          messagingSenderId: "",
-          projectId: "")
+          apiKey: "AIzaSyC6q8fLmuYyo38HaLiNDjcB7KshbS1D0rc",
+          appId: "1:226975447509:web:24ef0da7a7ca85c684255c",
+          messagingSenderId: "226975447509",
+          projectId: "dmsg-1d1c5")
   );
 
   runApp(const MyApp());
@@ -77,7 +77,7 @@ class _MyHomePageState extends State<MyHomePage> {
       _counter++;
     });
   }
-
+  final Future<FirebaseApp> _fApp = Firebase.initializeApp();
   @override
   Widget build(BuildContext context) {
     // This method is rerun every time setState is called, for instance as done
@@ -96,27 +96,35 @@ class _MyHomePageState extends State<MyHomePage> {
         // the App.build method, and use it to set our appbar title.
         title: Text(widget.title),
       ),
-      body: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: <Widget>[
-          Expanded(
-            child: ListView.builder(
-              itemCount: 20,
-              itemBuilder: (context, index) {
-                return ListTile(
-                  title: Text('Chat ${index + 1}'),
-                );
-              },
-            ),
-          ),
-          const FlutterLogo(),
-        ],
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+      body:
+          FutureBuilder(
+            future: _fApp,
+            builder: (context, snapshot) {
+              if (snapshot.hasError) {
+                return Text("Error");
+              } else if (snapshot.hasData) {
+                return Text("Firebase initialized");
+              } else {
+                return CircularProgressIndicator();
+              }
+            },
+          )
+      // Row(
+      //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      //   children: <Widget>[
+      //     Expanded(
+      //       child: ListView.builder(
+      //         itemCount: 20,
+      //         itemBuilder: (context, index) {
+      //           return ListTile(
+      //             title: Text('Chat ${index + 1}'),
+      //           );
+      //         },
+      //       ),
+      //     ),
+      //     const FlutterLogo(),
+      //   ],
+      // ),
     );
   }
 }
