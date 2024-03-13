@@ -45,57 +45,46 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
-    final users = RxList<String>();
-    DatabaseReference _testRef = FirebaseDatabase.instance.reference().child('users');
+    final users = RxList<
+        String>(); // Создаем RxList для хранения имен пользователей
+    DatabaseReference _testRef = FirebaseDatabase.instance.reference().child(
+        'users');
 
     _testRef.onValue.listen((event) {
       final data = event.snapshot.value;
-      final userList = (data as Map<String, dynamic>).values.cast<String>().toList(); // Преобразование данных в список имен
+      final userList = (data as List<dynamic>).map((
+          user) => user['name'] as String).toList();
       users.value = userList; // Обновляем RxList пользователей
 
       // Для примера выводим список имен пользователей
     });
+
     return Scaffold(
       appBar: AppBar(
-        // TRY THIS: Try changing the color here to a specific color (to
-        // Colors.amber, perhaps?) and trigger a hot reload to see the AppBar
-        // change color while the other colors stay the same.
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
+        backgroundColor: Theme
+            .of(context)
+            .colorScheme
+            .inversePrimary,
         title: Text(widget.title),
       ),
-        body: Obx(() => Column(
-          children: users.map((user) => Text(user)).toList(),
-        ))
-      // Row(
-      //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      //   children: <Widget>[
-      //     Expanded(
-      //       child: ListView.builder(
-      //         itemCount: users.length,
-      //         itemBuilder: (context, index) {
-      //           return ListTile(
-      //             title: Text(users[index]),
-      //           );
-      //         },
-      //       ),
-      //     ),
-      //     const FlutterLogo(),
-      //   ],
-      // ),
-      // FutureBuilder(
-      //   future: _fApp,
-      //   builder: (context, snapshot) {
-      //     if (snapshot.hasError) {
-      //       return Text("Error");
-      //     } else if (snapshot.hasData) {
-      //       return Text("Firebase initialized");
-      //     } else {
-      //       return CircularProgressIndicator();
-      //     }
-      //   },
-      // )
+      body: Obx(() => Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: <Widget>[
+          Expanded(
+            child: ListView.builder(
+              itemCount: users.length,
+              itemBuilder: (context, index) {
+                return ListTile(
+                  title: Text(users[index]),
+                );
+              },
+            ),
+          ),
+          const FlutterLogo(),
+        ],
+      ),
+      ),
     );
   }
+
 }
