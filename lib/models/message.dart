@@ -5,6 +5,15 @@ class Message {
   final DateTime timestamp;
 
   Message(this.messageId, this.senderId, this.receiverId, this.timestamp);
+
+  factory Message.fromJson(Map<String, dynamic> messageJson) {
+    return Message(
+      messageJson['messageId'],
+      messageJson['senderId'],
+      messageJson['receiverId'],
+      messageJson['timestamp'],
+    );
+  }
 }
 
 class TextMessage extends Message {
