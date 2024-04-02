@@ -15,6 +15,7 @@ class ChatsController extends GetxController {
   void fetchData() {
     dbChatsRef.onValue.listen((event) {
       final data = event.snapshot.value;
+      print("DATA: ${data}");
       if (data != null && data is Map) {
         // Преобразуем полученные данные в список чатов
         List<Chat> chatList = [];
@@ -25,6 +26,6 @@ class ChatsController extends GetxController {
         chats.value = chatList;
       }
     });
-    print(chats.value);
+    print("CHATS: ${chats.value}");
   }
 }

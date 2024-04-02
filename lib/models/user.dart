@@ -1,19 +1,19 @@
 import 'dart:core';
 
 class User {
-  final int userId;
-  final String username;
-  final String password;
+  int userId;
+  String username;
+  String password;
   List<int> blockedUsers;
 
-  User(this.userId, this.username, this.password, this.blockedUsers);
+  User({required this.userId, required this.username, required this.password, required this.blockedUsers});
 
   factory User.fromJson(Map<String, dynamic> userJson) {
     return User(
-      userJson['userId'],
-      userJson['username'],
-      userJson['password'],
-      userJson['blockedUsers'] != null ? List<int>.from(userJson['blockedUsers']) : [],
+      userId: userJson['userId'],
+      username: userJson['username'],
+      password: userJson['password'],
+      blockedUsers: userJson['blockedUsers'] != null ? List<int>.from(userJson['blockedUsers']) : [],
     );
   }
 }
