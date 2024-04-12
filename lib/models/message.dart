@@ -1,3 +1,8 @@
+import 'package:json_annotation/json_annotation.dart';
+
+part 'message.g.dart';
+
+@JsonSerializable()
 class Message {
   int messageId;
   int senderId;
@@ -6,14 +11,9 @@ class Message {
 
   Message({required this.messageId, required this.senderId, required this.receiverId, required this.timestamp});
 
-  factory Message.fromJson(Map<String, dynamic> messageJson) {
-    return Message(
-      messageId: messageJson['messageId'],
-      senderId: messageJson['senderId'],
-      receiverId: messageJson['receiverId'],
-      timestamp: messageJson['timestamp'],
-    );
-  }
+  factory Message.fromJson(Map<String, dynamic> json) => _$MessageFromJson(json);
+
+  Map<String, dynamic> toJson() => _$MessageToJson(this);
 }
 
 class TextMessage extends Message {

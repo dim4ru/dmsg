@@ -1,6 +1,10 @@
 import 'package:dmsg/models/user.dart';
+import 'package:json_annotation/json_annotation.dart';
 import 'message.dart';
 
+part 'chat.g.dart';
+
+@JsonSerializable()
 class Chat {
   final int chatId;
   final List<Message> messages;
@@ -12,11 +16,7 @@ class Chat {
     this.participants,
   );
 
-  factory Chat.fromJson(Map<String, dynamic> json) {
-    return Chat(
-      json['chatId'] ?? 0,
-      (json['messages'] as List<dynamic>).map((messageJson) => Message.fromJson(messageJson)).toList(),
-      (json['participants'] as List<dynamic>).map((userJson) => User.fromJson(userJson)).toList(),
-    );
-  }
+  factory Chat.fromJson(Map<String, dynamic> json) => _$ChatFromJson(json);
+
+  Map<String, dynamic> toJson() => _$ChatToJson(this);
 }
