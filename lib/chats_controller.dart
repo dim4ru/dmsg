@@ -9,6 +9,7 @@ class ChatsController extends GetxController {
   DatabaseReference dbChatsRef = FirebaseDatabase.instance.ref().child('chats');
 
   ChatsController() {
+    fetchData();
     getChatSnippet(2);
   }
 
