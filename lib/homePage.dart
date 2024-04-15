@@ -1,4 +1,6 @@
 import 'package:dmsg/widgets/chat_list_item.dart';
+import 'package:firebase_database/firebase_database.dart';
+import 'package:firebase_database/ui/firebase_animated_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
@@ -15,23 +17,21 @@ class HomePage extends GetView {
         backgroundColor: Theme.of(context).colorScheme.primary,
         title: Text("Chats"),
       ),
-      body: Obx(() => Row(
+      body: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
           Container(
             width: 250,
-            color: Colors.red,
-            child: ListView.builder(
-              itemCount: chatsController.chats.length,
-              itemBuilder: (context, index) {
-                return ChatListItem(name: chatsController.chats[index].chatId.toString(), image: "https://avatars.dzeninfra.ru/get-zen_doc/3822405/pub_61d5e240f443461eefd97f13_61d5e2e5031d8c08bbe63beb/scale_1200", messageSnippet: "привет");
-              },
-            ),
+            child: FirebaseAnimatedList(query: chatsController.dbChatsRef, itemBuilder: (BuildContext context, DataSnapshot snapshot, Animation<double> animation, int index) {
+              Map chat = snapshot.value as Map;
+              // chat['key'] = snapshot.key;
+              return ChatListItem(name: chat['participants'][0]['username'], image: "", messageSnippet: chat['messages'][(chat['messages'] as List).length-1]['text'].toString());
+            }),
           ),
           VerticalDivider(),
-          Text("Lorem ipsum dolor sit amet"),
+          Text("Welcome to DMSG"),
         ],
-      )),
+      ),
     );
   }
 }
