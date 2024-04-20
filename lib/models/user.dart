@@ -9,9 +9,8 @@ class User {
   String? avatar;
   String username;
   String password;
-  List<int> blockedUsers;
 
-  User({required this.userId, this.avatar,required this.username, required this.password, required this.blockedUsers});
+  User({required this.userId, this.avatar,required this.username, required this.password});
 
   factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
 

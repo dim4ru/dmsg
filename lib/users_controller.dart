@@ -1,20 +1,20 @@
-import 'package:firebase_database/firebase_database.dart';
+import 'dart:convert';
 import 'package:get/get.dart';
+import 'package:http/http.dart' as http;
+import 'models/user.dart';
 
 class UsersController extends GetxController {
-  final users = RxList<String>();
-
-  DatabaseReference dbRef = FirebaseDatabase.instance.ref().child('users');
+  final users = RxList<User>();
 
   UsersController() {
     getAllUsers();
   }
 
-  void getAllUsers() {
-    dbRef.onValue.listen((event) {
-      final data = event.snapshot.value;
-      final userList = (data as List<dynamic>).map((user) => user['name'] as String).toList();
-      users.value = userList;
-    });
+  Future getAllUsers() async {
+    final url = Uri.https("dmsg-1d1c5-default-rtdb.europe-west1.firebasedatabase.app", "users.json");
+    final resp = await http.get(url);
+    final List<dynamic> responseData = json.decode(resp.body);
+    List<User> userList = responseData.map((userData) => User.fromJson(userData)).toList();
+    users.addAll(userList);
   }
 }

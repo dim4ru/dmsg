@@ -11,8 +11,6 @@ User _$UserFromJson(Map<String, dynamic> json) => User(
       avatar: json['avatar'] as String?,
       username: json['username'] as String,
       password: json['password'] as String,
-      blockedUsers:
-          (json['blockedUsers'] as List<dynamic>).map((e) => e as int).toList(),
     );
 
 Map<String, dynamic> _$UserToJson(User instance) => <String, dynamic>{
@@ -20,5 +18,4 @@ Map<String, dynamic> _$UserToJson(User instance) => <String, dynamic>{
       'avatar': instance.avatar,
       'username': instance.username,
       'password': instance.password,
-      'blockedUsers': instance.blockedUsers,
     };

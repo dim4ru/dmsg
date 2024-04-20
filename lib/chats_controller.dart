@@ -16,13 +16,12 @@ class ChatsController extends GetxController {
   void fetchData() {
     dbChatsRef.onValue.listen((event) {
       final data = event.snapshot.value;
-      print(data);
     });
   }
 
   Future<void> getChatSnippet(int chatId) async {
     var ref = dbChatsRef.child((chatId-1).toString()).child('messages').orderByChild('timestamp').limitToLast(1);
     DatabaseEvent event = await ref.once();
-    print((((event.snapshot.value as List).last) as Map)['text']);
+    // print((((event.snapshot.value as List).last) as Map)['text']);
   }
 }

@@ -1,3 +1,4 @@
+import 'package:dmsg/users_controller.dart';
 import 'package:dmsg/widgets/chat_list_item.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_database/ui/firebase_animated_list.dart';
@@ -9,6 +10,7 @@ import 'chats_controller.dart';
 
 class HomePage extends GetView {
   final chatsController = ChatsController();
+  final usersController = UsersController();
 
   @override
   Widget build(BuildContext context) {
