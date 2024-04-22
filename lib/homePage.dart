@@ -10,7 +10,6 @@ import 'chats_controller.dart';
 
 class HomePage extends GetView {
   final chatsController = ChatsController();
-  final usersController = UsersController();
 
   @override
   Widget build(BuildContext context) {
