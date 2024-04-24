@@ -68,14 +68,14 @@ class SignIn extends GetView<SignInController> {
                     return null;
                   },
                 ),
-                SizedBox(height: 20,),
+                const SizedBox(height: 20,),
                 ElevatedButton(onPressed: () async {
                   if (true) {
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(content: Text('Incorrect email or password')),
                     );
                   }
-                }, child: Text("Sign in"))
+                }, child: const Text("Sign in"))
               ],
             ),
           ),

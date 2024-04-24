@@ -9,17 +9,22 @@ class SignUpController {
   final email = RxString("");
   final password = RxString("");
 
-  Future signUp() async {
+  Future<dynamic> signUp() async {
     final FirebaseAuth auth = FirebaseAuth.instance;
     try {
       UserCredential result = await auth.createUserWithEmailAndPassword(email: email.value, password: password.value);
       User user = result.user!;
       return userFromFirebaseUser(user);
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'email-already-in-use') {
+        return 'The provided email is already in use by an existing user';
+      }
+      return e.message!;
     } catch (e) {
-      print(e.toString());
-      return null;
+      return e.toString();
     }
   }
+
 
   model.User? userFromFirebaseUser(User? user) {
     return user != null ? model.User(uid: user.uid, username: 'newuser') : null;
@@ -88,13 +93,24 @@ class SignUp extends GetView<SignUpController> {
                     return null;
                   },
                 ),
-                SizedBox(height: 20,),
+                const SizedBox(height: 20,),
                 ElevatedButton(onPressed: () async {
                   if (_formKey.currentState!.validate()) {
                     _formKey.currentState?.save();
-                    controller.signUp();
+                    dynamic result  = await controller.signUp();
+                    if (result is String) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text(result),
+                        ),
+                      );
+                    } else {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(content: Text('You have signed up successfully')),
+                      );
+                    }
                   }
-                }, child: Text("Sign up"))
+                }, child: Text("Sign up")),
               ],
             ),
           ),
