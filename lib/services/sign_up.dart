@@ -50,14 +50,10 @@ class SignUp extends GetView<SignUpController> {
             key: _formKey,
             child: Column(
               children: [
-                SizedBox(height: 20,),
+                const SizedBox(height: 20,),
                 TextFormField(
                   decoration: const InputDecoration(
                     labelText: 'Email',
-                    hintStyle: TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.normal,
-                    ),
                   ),
                   keyboardType: TextInputType.text,
                   onChanged: (val) {
@@ -73,15 +69,11 @@ class SignUp extends GetView<SignUpController> {
                     return null;
                   },
                 ),
-                SizedBox(height: 20,),
+                const SizedBox(height: 20,),
                 TextFormField(
                   obscureText: true,
                   decoration: const InputDecoration(
                     labelText: 'Password',
-                    hintStyle: TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.normal,
-                    ),
                   ),
                   onChanged: (val) {
                     controller.password.value = val;

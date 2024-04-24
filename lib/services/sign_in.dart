@@ -30,14 +30,10 @@ class SignIn extends GetView<SignInController> {
           child: Form(
             child: Column(
               children: [
-                SizedBox(height: 20,),
+                const SizedBox(height: 20,),
                 TextFormField(
                   decoration: const InputDecoration(
                     labelText: 'Email',
-                    hintStyle: TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.normal,
-                    ),
                   ),
                   keyboardType: TextInputType.text,
                   onChanged: (val) {
@@ -47,18 +43,17 @@ class SignIn extends GetView<SignInController> {
                     if (value == null || value.isEmpty) {
                       return 'This field cannot be blank';
                     }
+                    if (!value.isEmail) {
+                      return 'Incorrect email format';
+                    }
                     return null;
                   },
                 ),
-                SizedBox(height: 20,),
+                const SizedBox(height: 20,),
                 TextFormField(
                   obscureText: true,
                   decoration: const InputDecoration(
                     labelText: 'Password',
-                    hintStyle: TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.normal,
-                    ),
                   ),
                   onChanged: (val) {
                     controller.password.value = val;
@@ -66,6 +61,9 @@ class SignIn extends GetView<SignInController> {
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'This field cannot be blank';
+                    }
+                    if (value.length <6) {
+                      return "Password should be at least 6 characters";
                     }
                     return null;
                   },
