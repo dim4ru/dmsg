@@ -1,3 +1,4 @@
+import 'package:dmsg/services/sign_in.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -30,7 +31,7 @@ class MyApp extends GetView {
             colorScheme: ThemeData.dark()
                 .colorScheme
                 .copyWith(primary: Color(0xff16E098))),
-      home: HomePage(),
+      home: SignIn(),
     );
   }
 }
