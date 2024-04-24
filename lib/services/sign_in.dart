@@ -4,7 +4,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
 
 class SignInController {
-  final username = RxString("");
+  final email = RxString("");
   final password = RxString("");
 }
 
@@ -33,7 +33,7 @@ class SignIn extends GetView<SignInController> {
                 SizedBox(height: 20,),
                 TextFormField(
                   decoration: const InputDecoration(
-                    labelText: 'Username',
+                    labelText: 'Email',
                     hintStyle: TextStyle(
                       fontSize: 14,
                       fontWeight: FontWeight.normal,
@@ -41,7 +41,7 @@ class SignIn extends GetView<SignInController> {
                   ),
                   keyboardType: TextInputType.text,
                   onChanged: (val) {
-                    controller.username.value = val;
+                    controller.email.value = val;
                   },
                   validator: (value) {
                     if (value == null || value.isEmpty) {
@@ -74,7 +74,7 @@ class SignIn extends GetView<SignInController> {
                 ElevatedButton(onPressed: () async {
                   if (true) {
                     ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text('Incorrect username or password')),
+                      const SnackBar(content: Text('Incorrect email or password')),
                     );
                   }
                 }, child: Text("Sign in"))

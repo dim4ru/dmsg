@@ -1,14 +1,28 @@
 import 'package:dmsg/services/sign_in.dart';
+import 'package:dmsg/models/user.dart' as model;
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
 
 class SignUpController {
-  final username = RxString("");
+  final email = RxString("");
   final password = RxString("");
 
-  void doSignUp() {
+  Future signUp() async {
+    final FirebaseAuth auth = FirebaseAuth.instance;
+    try {
+      UserCredential result = await auth.createUserWithEmailAndPassword(email: email.value, password: password.value);
+      User user = result.user!;
+      return userFromFirebaseUser(user);
+    } catch (e) {
+      print(e.toString());
+      return null;
+    }
+  }
 
+  model.User? userFromFirebaseUser(User? user) {
+    return user != null ? model.User(uid: user.uid, username: 'newuser') : null;
   }
 }
 
@@ -39,7 +53,7 @@ class SignUp extends GetView<SignUpController> {
                 SizedBox(height: 20,),
                 TextFormField(
                   decoration: const InputDecoration(
-                    labelText: 'Username',
+                    labelText: 'Email',
                     hintStyle: TextStyle(
                       fontSize: 14,
                       fontWeight: FontWeight.normal,
@@ -47,7 +61,7 @@ class SignUp extends GetView<SignUpController> {
                   ),
                   keyboardType: TextInputType.text,
                   onChanged: (val) {
-                    controller.username.value = val;
+                    controller.email.value = val;
                   },
                   validator: (value) {
                     if (value == null || value.isEmpty) {
@@ -80,7 +94,7 @@ class SignUp extends GetView<SignUpController> {
                 ElevatedButton(onPressed: () async {
                   if (_formKey.currentState!.validate()) {
                     _formKey.currentState?.save();
-                    controller.doSignUp();
+                    controller.signUp();
                   }
                 }, child: Text("Sign up"))
               ],
