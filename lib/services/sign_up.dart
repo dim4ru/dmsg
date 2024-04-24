@@ -67,6 +67,9 @@ class SignUp extends GetView<SignUpController> {
                     if (value == null || value.isEmpty) {
                       return 'This field cannot be blank';
                     }
+                    if (!value.isEmail) {
+                      return 'Incorrect email format';
+                    }
                     return null;
                   },
                 ),
@@ -86,6 +89,9 @@ class SignUp extends GetView<SignUpController> {
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'This field cannot be blank';
+                    }
+                    if (value.length <6) {
+                      return "Password should be at least 6 characters";
                     }
                     return null;
                   },
