@@ -1,26 +1,26 @@
-import 'package:dmsg/services/sign_up.dart';
+import 'package:dmsg/services/sign_in.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
 
-class SignInController {
+class SignUpController {
   final username = RxString("");
   final password = RxString("");
 }
 
-class SignIn extends GetView<SignInController> {
-  final controller = SignInController();
+class SignUp extends GetView<SignUpController> {
+  final controller = SignUpController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        title: Text("Signing In"),
+        title: Text("Signing Up"),
         actions: [
           TextButton(onPressed: () {
-            Get.to(() => SignUp());
-          }, child: Text("Not signed up yet?"))
+            Get.to(() => SignIn());
+          }, child: Text("Already signed up?"))
         ],
       ),
       body: Center(
@@ -74,10 +74,10 @@ class SignIn extends GetView<SignInController> {
                 ElevatedButton(onPressed: () async {
                   if (true) {
                     ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text('Incorrect username or password')),
+                      const SnackBar(content: Text('You are already registered')),
                     );
                   }
-                }, child: Text("Sign in"))
+                }, child: Text("Sign up"))
               ],
             ),
           ),
