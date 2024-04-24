@@ -49,7 +49,11 @@ class Home extends GetView {
             }),
           ),
           VerticalDivider(),
-          Text("Welcome to DMSG"),
+          Obx(
+            () => Get.find<AuthController>().user == null
+                ? Text('Не авторизован')
+                : Text('Авторизован'),
+          ),
         ],
       ),
     );

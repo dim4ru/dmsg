@@ -1,3 +1,4 @@
+import 'package:dmsg/home.dart';
 import 'package:dmsg/services/auth.dart';
 import 'package:dmsg/services/sign_in.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -25,14 +26,21 @@ class MyApp extends GetView {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-
     return GetMaterialApp(
       title: 'Chats - DMSG',
         theme: ThemeData.dark().copyWith(
             colorScheme: ThemeData.dark()
                 .colorScheme
                 .copyWith(primary: Color(0xff16E098))),
-      home: SignIn(),
+      home: Obx(() {
+        if (Get.find<AuthController>().loading) {
+          return Center(child: CircularProgressIndicator());
+        } else {
+          return Get.find<AuthController>().user == null
+              ? SignIn()
+              : Home();
+        }
+      }),
     );
   }
 }
