@@ -33,17 +33,16 @@ class AuthController extends GetxController {
       UserCredential result = await auth.signInWithEmailAndPassword(email: email.value, password: password.value);
       User user = result.user!;
       return userFromFirebaseUser(user);
-    } on FirebaseAuthException catch (e) {
-      if (e.code == 'invalid-password') {
-        return 'The provided value for the password user property is invalid';
-      }
-      return e.message!;
     } catch (e) {
       return e.toString();
     }
   }
 
-  // Sign out
   Future<dynamic> signOut() async {
+    try {
+      return await auth.signOut();
+    } catch(e) {
+      return e.toString();
+    }
   }
 }

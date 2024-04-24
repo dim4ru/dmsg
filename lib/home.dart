@@ -1,3 +1,5 @@
+import 'package:dmsg/services/auth.dart';
+import 'package:dmsg/services/sign_in.dart';
 import 'package:dmsg/widgets/chat_list_item.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_database/ui/firebase_animated_list.dart';
@@ -7,21 +9,32 @@ import 'package:get/get.dart';
 
 import 'chats_controller.dart';
 
-class HomePage extends GetView {
+class Home extends GetView {
   final chatsController = ChatsController();
+  final auth = Get.find<AuthController>();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        backgroundColor: Theme.of(context).colorScheme.primary,
         title: Text("Chats"),
         actions: [
-          TextButton(onPressed: () {
-            Get.to(() => ());
-            // TODO signout
-          }, child: Text("Already signed up?"))
+          TextButton(onPressed: () async {
+            dynamic result = await auth.signOut();
+            if (result is String) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text(result),
+                ),
+              );
+            } else {
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(content: Text('You have signed out successfully')),
+              );
+              Get.to(() => SignIn());
+            }
+          }, child: Text("Sign out"))
         ],
       ),
       body: Row(

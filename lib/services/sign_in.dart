@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
 
-import '../homePage.dart';
+import '../home.dart';
 
 
 class SignIn extends GetView<AuthController> {
@@ -84,7 +84,7 @@ class SignIn extends GetView<AuthController> {
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(content: Text('You have signed in successfully')),
                       );
-                      Get.to(() => HomePage());
+                      Get.to(() => Home());
                     }
                   }
                 }, child: const Text("Sign in"))

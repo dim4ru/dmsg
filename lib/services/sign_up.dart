@@ -13,7 +13,6 @@ class SignUp extends GetView<AuthController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        automaticallyImplyLeading: false,
         title: Text("Signing Up"),
         actions: [
           TextButton(onPressed: () {
