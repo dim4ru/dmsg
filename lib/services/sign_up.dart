@@ -6,9 +6,14 @@ import 'package:get/get.dart';
 class SignUpController {
   final username = RxString("");
   final password = RxString("");
+
+  void doSignUp() {
+
+  }
 }
 
 class SignUp extends GetView<SignUpController> {
+  final _formKey = GlobalKey<FormState>();
   final controller = SignUpController();
 
   @override
@@ -28,6 +33,7 @@ class SignUp extends GetView<SignUpController> {
           padding: EdgeInsets.only(top: 200),
           width: 500,
           child: Form(
+            key: _formKey,
             child: Column(
               children: [
                 SizedBox(height: 20,),
@@ -72,10 +78,9 @@ class SignUp extends GetView<SignUpController> {
                 ),
                 SizedBox(height: 20,),
                 ElevatedButton(onPressed: () async {
-                  if (true) {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text('You are already registered')),
-                    );
+                  if (_formKey.currentState!.validate()) {
+                    _formKey.currentState?.save();
+                    controller.doSignUp();
                   }
                 }, child: Text("Sign up"))
               ],
