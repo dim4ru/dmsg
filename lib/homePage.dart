@@ -1,4 +1,3 @@
-import 'package:dmsg/users_controller.dart';
 import 'package:dmsg/widgets/chat_list_item.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_database/ui/firebase_animated_list.dart';
@@ -15,8 +14,15 @@ class HomePage extends GetView {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         backgroundColor: Theme.of(context).colorScheme.primary,
         title: Text("Chats"),
+        actions: [
+          TextButton(onPressed: () {
+            Get.to(() => ());
+            // TODO signout
+          }, child: Text("Already signed up?"))
+        ],
       ),
       body: Row(
         mainAxisAlignment: MainAxisAlignment.start,

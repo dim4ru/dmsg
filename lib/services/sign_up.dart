@@ -1,39 +1,13 @@
 import 'package:dmsg/services/sign_in.dart';
-import 'package:dmsg/models/user.dart' as model;
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
 
-class SignUpController {
-  final email = RxString("");
-  final password = RxString("");
+import 'auth.dart';
 
-  Future<dynamic> signUp() async {
-    final FirebaseAuth auth = FirebaseAuth.instance;
-    try {
-      UserCredential result = await auth.createUserWithEmailAndPassword(email: email.value, password: password.value);
-      User user = result.user!;
-      return userFromFirebaseUser(user);
-    } on FirebaseAuthException catch (e) {
-      if (e.code == 'email-already-in-use') {
-        return 'The provided email is already in use by an existing user';
-      }
-      return e.message!;
-    } catch (e) {
-      return e.toString();
-    }
-  }
-
-
-  model.User? userFromFirebaseUser(User? user) {
-    return user != null ? model.User(uid: user.uid, username: 'newuser') : null;
-  }
-}
-
-class SignUp extends GetView<SignUpController> {
+class SignUp extends GetView<AuthController> {
   final _formKey = GlobalKey<FormState>();
-  final controller = SignUpController();
+  final controller = AuthController();
 
   @override
   Widget build(BuildContext context) {

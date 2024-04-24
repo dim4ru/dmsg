@@ -1,15 +1,15 @@
+import 'package:dmsg/services/auth.dart';
 import 'package:dmsg/services/sign_up.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
 
-class SignInController {
-  final email = RxString("");
-  final password = RxString("");
-}
+import '../homePage.dart';
 
-class SignIn extends GetView<SignInController> {
-  final controller = SignInController();
+
+class SignIn extends GetView<AuthController> {
+  final _formKey = GlobalKey<FormState>();
+  final controller = AuthController();
 
   @override
   Widget build(BuildContext context) {
@@ -28,6 +28,7 @@ class SignIn extends GetView<SignInController> {
           padding: EdgeInsets.only(top: 200),
           width: 500,
           child: Form(
+            key: _formKey,
             child: Column(
               children: [
                 const SizedBox(height: 20,),
@@ -70,10 +71,21 @@ class SignIn extends GetView<SignInController> {
                 ),
                 const SizedBox(height: 20,),
                 ElevatedButton(onPressed: () async {
-                  if (true) {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text('Incorrect email or password')),
-                    );
+                  if (_formKey.currentState!.validate()) {
+                    _formKey.currentState?.save();
+                    dynamic result  = await controller.signIn();
+                    if (result is String) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text(result),
+                        ),
+                      );
+                    } else {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(content: Text('You have signed in successfully')),
+                      );
+                      Get.to(() => HomePage());
+                    }
                   }
                 }, child: const Text("Sign in"))
               ],
