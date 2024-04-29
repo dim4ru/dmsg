@@ -1,3 +1,4 @@
+import 'package:dmsg/chats_controller.dart';
 import 'package:dmsg/home.dart';
 import 'package:dmsg/services/auth.dart';
 import 'package:dmsg/services/sign_in.dart';
@@ -16,6 +17,8 @@ void main() async {
           databaseURL:"https://dmsg-1d1c5-default-rtdb.europe-west1.firebasedatabase.app/")
   );
   Get.lazyPut(() => AuthController(), fenix: true);
+  Get.lazyPut(() => ChatsController(), fenix: true);
+
 
   runApp(const MyApp());
 }

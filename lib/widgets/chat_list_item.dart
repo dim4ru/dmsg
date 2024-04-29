@@ -3,19 +3,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
 
-class ChatListItem extends GetWidget {
-  final String name;
-  final String image;
-  final String messageSnippet ;
+import '../models/chat.dart';
 
-  ChatListItem({required this.name, required this.image, required this.messageSnippet});
+class ChatListItem extends GetWidget {
+  final Chat chat;
+  ChatListItem({required this.chat});
 
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      leading: ProfilePicture(url: image,),
-      title: Text(name),
-      subtitle: Text(messageSnippet),
+      leading: ProfilePicture(url: null,),
+      title: Text(chat.participants[0].username),
+      subtitle: Text("text"),
     );
   }
 }
