@@ -1,5 +1,6 @@
 import 'package:dmsg/services/auth.dart';
 import 'package:dmsg/services/sign_in.dart';
+import 'package:dmsg/widgets/chat.dart';
 import 'package:dmsg/widgets/chats_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -41,7 +42,7 @@ class Home extends GetView {
           Obx(
                 () => Get.find<AuthController>().user == null
                 ? Text('Не авторизован')
-                : Text('Авторизован'),
+                : Chat(),
           ),
         ],
       ),

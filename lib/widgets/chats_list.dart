@@ -18,8 +18,11 @@ class ChatsList extends GetView<ChatsController> {
         shrinkWrap: true,
         itemCount: controller.chats.length,
         itemBuilder: (BuildContext context, int index) {
-          return ChatListItem(
-            chat: controller.chats[index],
+          return GestureDetector(
+            onTap: () => controller.displayChat.value = controller.chats[index].chatId,
+            child: ChatListItem(
+              chat: controller.chats[index],
+            ),
           );
         },
       ),
