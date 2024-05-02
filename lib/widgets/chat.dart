@@ -1,4 +1,5 @@
 import 'package:dmsg/chat_controller.dart';
+import 'package:dmsg/widgets/chat_header.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -17,11 +18,7 @@ class Chat extends GetView<ChatController> {
         ? Text("Select chat")
         : Column(
             children: [
-              Container(
-                  color: Theme.of(context).colorScheme.primary,
-                  child: Row(
-                    children: [Text(controller.displayChat.value!.toString())],
-                  ))
+              ChatHeader(image: null, name: "Ivan Ivanov Test",),
             ],
           ));
   }

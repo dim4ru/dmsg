@@ -8,7 +8,7 @@ class ProfilePicture extends GetWidget {
   static double iconSize = 18;
   final String? url;
 
-  ProfilePicture({super.key, required this.url});
+  ProfilePicture({required this.url});
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +24,6 @@ class ProfilePicture extends GetWidget {
           placeholderBuilder:
           OctoPlaceholder.circularProgressIndicator(),
           errorBuilder: OctoError.icon(color: Colors.black),
-          fit: BoxFit.fill,
         ),
       ),
     );
