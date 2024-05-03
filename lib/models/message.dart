@@ -16,12 +16,16 @@ class Message {
   Map<String, dynamic> toJson() => _$MessageToJson(this);
 }
 
+// TODO make seiralizable
 class TextMessage extends Message {
   final String text;
 
-  TextMessage(int messageId, int senderId, int receiverId, DateTime timestamp, this.text) : super(messageId: messageId, senderId: senderId, receiverId: receiverId, timestamp: timestamp);
+  TextMessage({required int messageId, required int senderId, required int receiverId, required DateTime timestamp, required this.text})
+      : super(messageId: messageId, senderId: senderId, receiverId: receiverId, timestamp: timestamp);
 }
 
+// TODO update fields to requied
+// TODO make seiralizable
 class ImageMessage extends Message {
   final String imageUrl;
 

@@ -6,6 +6,8 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import 'chat_controller.dart';
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
@@ -18,7 +20,7 @@ void main() async {
   );
   Get.lazyPut(() => AuthController(), fenix: true);
   Get.lazyPut(() => ChatsController(), fenix: true);
-
+  Get.lazyPut(() => ChatController(), fenix: true);
 
   runApp(const MyApp());
 }
@@ -34,7 +36,7 @@ class MyApp extends GetView {
         theme: ThemeData.dark().copyWith(
             colorScheme: ThemeData.dark()
                 .colorScheme
-                .copyWith(primary: Color(0xff16E098))),
+                .copyWith(primary: Color(0xff16E098), secondary: Color(0xff084E35))),
       home: Obx(() {
         if (Get.find<AuthController>().loading) {
           return Center(child: CircularProgressIndicator());

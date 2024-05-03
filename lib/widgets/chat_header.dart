@@ -13,16 +13,14 @@ class ChatHeader extends GetWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        color: CupertinoColors.secondaryLabel,
+        color: Theme.of(context).colorScheme.secondary,
         height: 50,
         child: Row(
-          mainAxisSize: MainAxisSize.max,
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Row(
               children: [
                 ProfilePicture(url: image),
-                SizedBox(
+                const SizedBox(
                   width: 15,
                 ),
                 Text(
@@ -31,11 +29,7 @@ class ChatHeader extends GetWidget {
                 ),
               ],
             ),
-            Row(
-              children: [
-                IconButton(onPressed: () {}, icon: Icon(Icons.delete_outline))
-              ],
-            )
+            IconButton(onPressed: () {}, icon: Icon(Icons.delete_outline))
           ],
         ));
   }

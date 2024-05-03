@@ -15,6 +15,7 @@ class ChatListItem extends GetWidget {
       leading: ProfilePicture(url: null,),
       title: Text(chat.participants[0].username),
       subtitle: Text("text"),
+      tileColor: Theme.of(context).colorScheme.secondary,
     );
   }
 }

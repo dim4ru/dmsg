@@ -1,0 +1,1 @@
+const double messageBubbleRadius = 15.0;
