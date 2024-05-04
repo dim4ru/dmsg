@@ -7,7 +7,7 @@ import 'package:octo_image/octo_image.dart';
 
 import '../../models/message.dart' as model;
 
-import '../../constants.dart';
+import '../constants.dart';
 
 abstract class ImageMessage extends StatelessWidget {
   const ImageMessage({Key? key, required this.message}) : super(key: key);

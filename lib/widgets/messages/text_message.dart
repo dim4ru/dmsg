@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import '../../models/message.dart' as model;
 
-import '../../constants.dart';
+import '../constants.dart';
 
 abstract class TextMessage extends StatelessWidget {
   const TextMessage({Key? key, required this.message}) : super(key: key);

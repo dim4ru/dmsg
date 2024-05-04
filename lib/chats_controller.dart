@@ -6,7 +6,7 @@ import 'package:http/http.dart' as http;
 
 class ChatsController extends GetxController {
   final chats = RxList<Chat>();
-  final Rx<int?> displayChat = Rx<int?>(null);
+  final Rx<int?> targetChat = Rx<int?>(null);
 
   ChatsController() {
     getChats();

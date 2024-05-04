@@ -10,27 +10,53 @@ class ChatHeader extends GetWidget {
 
   ChatHeader({required this.image, required this.name});
 
+  final popupMenuItems = [
+    PopupMenuItem(
+      child: const Row(
+        children: [
+          Icon(Icons.delete_forever),
+          SizedBox(width: 15,),
+          Text('Clear chat'),
+        ],
+      ),
+      onTap: () {},
+    ),
+    PopupMenuItem(
+      child: const Row(
+        children: [
+          Icon(Icons.block),
+          SizedBox(width: 15,),
+          Text('Block user'),
+        ],
+      ),
+      onTap: () {},
+    ),
+  ];
+
   @override
   Widget build(BuildContext context) {
-    return Container(
-        color: Theme.of(context).colorScheme.secondary,
-        height: 50,
-        child: Row(
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        Row(
           children: [
-            Row(
-              children: [
-                ProfilePicture(url: image),
-                const SizedBox(
-                  width: 15,
-                ),
-                Text(
-                  name ?? "",
-                  style: TextStyle(fontSize: 16),
-                ),
-              ],
+            ProfilePicture(url: image),
+            Padding(
+              padding: const EdgeInsets.only(left: 10, right: 15),
+              child: Text(
+                name ?? "",
+                style: TextStyle(fontSize: 16),
+              ),
             ),
-            IconButton(onPressed: () {}, icon: Icon(Icons.delete_outline))
+            PopupMenuButton(
+              icon: const Icon(Icons.more_vert),
+              tooltip: '',
+              itemBuilder: (context) => popupMenuItems,
+            )
+
           ],
-        ));
+        ),
+      ],
+    );
   }
 }
