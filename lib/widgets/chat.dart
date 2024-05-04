@@ -33,9 +33,8 @@ class Chat extends GetView<ChatController> {
                     senderId: 2,
                     receiverId: 3,
                     timestamp: DateTime.now(),
-                    text: """
-                    Wassup?Wassup?Wassup?Wassup?Wassup?Wassup?
-                    """,
+                    text: "Wassup? Wassup? Wassup? Wassup? Wassup? Wassup? Wassup? Wassup? Wassup? Wassup? Wassup? Wassup? Wassup? Wassup? Wassup? Wassup? Wassup?"
+                    ,
                   )
               ),
               OutcomingTextMessage(

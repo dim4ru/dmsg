@@ -1,4 +1,7 @@
 const double messageBubbleRadius = 15.0;
+
+const double textBubbleMaxWidthMaxWidth = 0.4;
+
 const double messageImageRadius = 12.0;
-const double messageImageWidth = 0.2;
-const double messageImageAspectRatio = 16 / 9;
+const double messageImageWidth = 0.15;
+const double messageImageAspectRatio = 4 / 3;

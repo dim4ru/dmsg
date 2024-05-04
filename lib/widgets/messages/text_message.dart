@@ -22,6 +22,7 @@ class IncomingTextMessage extends TextMessage {
           // onLongPress: () => messageController.deleteMessage(message.id),
           child: Container(
             padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+            constraints: BoxConstraints(maxWidth: MediaQuery.sizeOf(context).width * textBubbleMaxWidthMaxWidth),
             decoration: BoxDecoration(
               color: Theme.of(context).colorScheme.primary,
               borderRadius: const BorderRadius.only(
@@ -35,7 +36,7 @@ class IncomingTextMessage extends TextMessage {
         ),
         Padding(
           padding: const EdgeInsets.only(left: 5),
-          child: Text(dateTimeToTimeString(message.timestamp), style: TextStyle(fontSize: 10),),
+          child: Text(dateTimeToTimeString(message.timestamp), style: const TextStyle(fontSize: 10),),
         )
       ],
     );
@@ -51,12 +52,13 @@ class OutcomingTextMessage extends TextMessage {
       children: [
         Padding(
           padding: const EdgeInsets.only(right: 5),
-          child: Text(dateTimeToTimeString(message.timestamp), style: TextStyle(fontSize: 10),),
+          child: Text(dateTimeToTimeString(message.timestamp), style: const TextStyle(fontSize: 10),),
         ),
         GestureDetector(
           // onLongPress: () => messageController.deleteMessage(message.id),
           child: Container(
             padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+            constraints: BoxConstraints(maxWidth: MediaQuery.sizeOf(context).width * textBubbleMaxWidthMaxWidth),
             decoration: BoxDecoration(
               color: Theme.of(context).colorScheme.secondary,
               borderRadius: const BorderRadius.only(
