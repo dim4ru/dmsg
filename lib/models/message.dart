@@ -24,10 +24,9 @@ class TextMessage extends Message {
       : super(messageId: messageId, senderId: senderId, receiverId: receiverId, timestamp: timestamp);
 }
 
-// TODO update fields to requied
 // TODO make seiralizable
 class ImageMessage extends Message {
   final String imageUrl;
 
-  ImageMessage(int messageId, int senderId, int receiverId, DateTime timestamp, this.imageUrl) : super(messageId: messageId, senderId: senderId, receiverId: receiverId, timestamp: timestamp);
+  ImageMessage({required int messageId, required int senderId, required int receiverId, required DateTime timestamp, required this.imageUrl}) : super(messageId: messageId, senderId: senderId, receiverId: receiverId, timestamp: timestamp);
 }

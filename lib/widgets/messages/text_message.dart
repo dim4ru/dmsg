@@ -1,18 +1,18 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import '../models/message.dart' as model;
+import '../../models/message.dart' as model;
 
-import '../constants.dart';
+import '../../constants.dart';
 
-abstract class Message extends StatelessWidget {
-  const Message({Key? key, required this.message}) : super(key: key);
+abstract class TextMessage extends StatelessWidget {
+  const TextMessage({Key? key, required this.message}) : super(key: key);
 
   final model.TextMessage message;
 }
 
-class IncomingMessage extends Message {
-  const IncomingMessage({Key? key, required model.TextMessage message}) : super(key: key, message: message);
+class IncomingTextMessage extends TextMessage {
+  const IncomingTextMessage({Key? key, required model.TextMessage message}) : super(key: key, message: message);
 
   @override
   Widget build(BuildContext context) {
@@ -42,13 +42,17 @@ class IncomingMessage extends Message {
   }
 }
 
-class OutcomingMessage extends Message {
-  const OutcomingMessage({Key? key, required model.TextMessage message}) : super(key: key, message: message);
+class OutcomingTextMessage extends TextMessage {
+  const OutcomingTextMessage({Key? key, required model.TextMessage message}) : super(key: key, message: message);
 
   @override
   Widget build(BuildContext context) {
     return Row(
       children: [
+        Padding(
+          padding: const EdgeInsets.only(right: 5),
+          child: Text(dateTimeToTimeString(message.timestamp), style: TextStyle(fontSize: 10),),
+        ),
         GestureDetector(
           // onLongPress: () => messageController.deleteMessage(message.id),
           child: Container(
@@ -64,10 +68,6 @@ class OutcomingMessage extends Message {
             child: Text(message.text),
           ),
         ),
-        Padding(
-          padding: const EdgeInsets.only(left: 5),
-          child: Text(dateTimeToTimeString(message.timestamp), style: TextStyle(fontSize: 10),),
-        )
       ],
     );
   }
