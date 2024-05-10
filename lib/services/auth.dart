@@ -33,7 +33,6 @@ class AuthController extends GetxController {
     try {
       UserCredential result = await _auth.createUserWithEmailAndPassword(email: email.value, password: password.value);
       User user = result.user!;
-      print("UID FOR REG " + user.uid);
       addUser(user.uid);
       return _userFromFirebaseUser(user);
     } on FirebaseAuthException catch (e) {
