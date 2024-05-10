@@ -5,8 +5,8 @@ part 'message.g.dart';
 @JsonSerializable()
 class Message {
   int messageId;
-  int senderId;
-  int receiverId;
+  String senderId;
+  String receiverId;
   DateTime timestamp;
 
   Message(
@@ -27,8 +27,8 @@ class TextMessage extends Message {
 
   TextMessage(
       {required int messageId,
-      required int senderId,
-      required int receiverId,
+      required String senderId,
+      required String receiverId,
       required DateTime timestamp,
       required this.text})
       : super(
@@ -49,8 +49,8 @@ class ImageMessage extends Message {
 
   ImageMessage(
       {required int messageId,
-      required int senderId,
-      required int receiverId,
+      required String senderId,
+      required String receiverId,
       required DateTime timestamp,
       required this.imageUrl})
       : super(

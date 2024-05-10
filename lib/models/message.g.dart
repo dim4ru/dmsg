@@ -8,8 +8,8 @@ part of 'message.dart';
 
 Message _$MessageFromJson(Map<String, dynamic> json) => Message(
       messageId: json['messageId'] as int,
-      senderId: json['senderId'] as int,
-      receiverId: json['receiverId'] as int,
+      senderId: json['senderId'] as String,
+      receiverId: json['receiverId'] as String,
       timestamp: DateTime.parse(json['timestamp'] as String),
     );
 
@@ -22,8 +22,8 @@ Map<String, dynamic> _$MessageToJson(Message instance) => <String, dynamic>{
 
 TextMessage _$TextMessageFromJson(Map<String, dynamic> json) => TextMessage(
       messageId: json['messageId'] as int,
-      senderId: json['senderId'] as int,
-      receiverId: json['receiverId'] as int,
+      senderId: json['senderId'] as String,
+      receiverId: json['receiverId'] as String,
       timestamp: DateTime.parse(json['timestamp'] as String),
       text: json['text'] as String,
     );
@@ -39,8 +39,8 @@ Map<String, dynamic> _$TextMessageToJson(TextMessage instance) =>
 
 ImageMessage _$ImageMessageFromJson(Map<String, dynamic> json) => ImageMessage(
       messageId: json['messageId'] as int,
-      senderId: json['senderId'] as int,
-      receiverId: json['receiverId'] as int,
+      senderId: json['senderId'] as String,
+      receiverId: json['receiverId'] as String,
       timestamp: DateTime.parse(json['timestamp'] as String),
       imageUrl: json['imageUrl'] as String,
     );

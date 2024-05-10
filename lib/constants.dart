@@ -1,0 +1,1 @@
+const String databaseUrl = 'https://dmsg-1d1c5-default-rtdb.europe-west1.firebasedatabase.app';

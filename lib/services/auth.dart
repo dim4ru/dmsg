@@ -1,4 +1,5 @@
 import 'package:dmsg/models/user.dart' as model;
+import 'package:dmsg/services/newUser.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:get/get_rx/src/rx_types/rx_types.dart';
@@ -32,6 +33,8 @@ class AuthController extends GetxController {
     try {
       UserCredential result = await _auth.createUserWithEmailAndPassword(email: email.value, password: password.value);
       User user = result.user!;
+      print("UID FOR REG " + user.uid);
+      addUser(user.uid);
       return _userFromFirebaseUser(user);
     } on FirebaseAuthException catch (e) {
       if (e.code == 'email-already-in-use') {

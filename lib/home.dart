@@ -14,7 +14,7 @@ class Home extends GetView {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        title: Text("Chats"),
+        title: Text(auth.user!=null ? auth.user!.uid : "null uid error"),
         actions: [
           TextButton(onPressed: () async {
             dynamic result = await auth.signOut();

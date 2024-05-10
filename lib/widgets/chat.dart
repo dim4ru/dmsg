@@ -29,43 +29,43 @@ class Chat extends GetView<ChatController> {
               ),
               Column(
                 children: [
-                  IncomingTextMessage(
-                      message: model.TextMessage(
-                        messageId: 1,
-                        senderId: 2,
-                        receiverId: 3,
-                        timestamp: DateTime.now(),
-                        text: "Wassup? Wassup? Wassup? Wassup? Wassup? Wassup? Wassup? Wassup? Wassup? Wassup? Wassup? Wassup? Wassup? Wassup? Wassup? Wassup? Wassup?"
-                        ,
-                      )
-                  ),
-                  OutcomingTextMessage(
-                      message: model.TextMessage(
-                        messageId: 1,
-                        senderId: 2,
-                        receiverId: 3,
-                        timestamp: DateTime.now(),
-                        text: 'Fine...',
-                      )
-                  ),
-                  IncomingImageMessage(
-                      message: model.ImageMessage(
-                        messageId: 1,
-                        senderId: 2,
-                        receiverId: 3,
-                        timestamp: DateTime.now(),
-                        imageUrl: 'https://images.unsplash.com/photo-1612528443702-f6741f70a049?q=80&w=3880&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-                      )
-                  ),
-                  OutcomingImageMessage(
-                      message: model.ImageMessage(
-                        messageId: 1,
-                        senderId: 2,
-                        receiverId: 3,
-                        timestamp: DateTime.now(),
-                        imageUrl: 'https://images.unsplash.com/photo-1566633806327-68e152aaf26d?q=80&w=3870&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-                      )
-                  )
+                  // IncomingTextMessage(
+                  //     message: model.TextMessage(
+                  //       messageId: 1,
+                  //       senderId: 2,
+                  //       receiverId: 3,
+                  //       timestamp: DateTime.now(),
+                  //       text: "Wassup? Wassup? Wassup? Wassup? Wassup? Wassup? Wassup? Wassup? Wassup? Wassup? Wassup? Wassup? Wassup? Wassup? Wassup? Wassup? Wassup?"
+                  //       ,
+                  //     )
+                  // ),
+                  // OutcomingTextMessage(
+                  //     message: model.TextMessage(
+                  //       messageId: 1,
+                  //       senderId: 2,
+                  //       receiverId: 3,
+                  //       timestamp: DateTime.now(),
+                  //       text: 'Fine...',
+                  //     )
+                  // ),
+                  // IncomingImageMessage(
+                  //     message: model.ImageMessage(
+                  //       messageId: 1,
+                  //       senderId: 2,
+                  //       receiverId: 3,
+                  //       timestamp: DateTime.now(),
+                  //       imageUrl: 'https://images.unsplash.com/photo-1612528443702-f6741f70a049?q=80&w=3880&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+                  //     )
+                  // ),
+                  // OutcomingImageMessage(
+                  //     message: model.ImageMessage(
+                  //       messageId: 1,
+                  //       senderId: 2,
+                  //       receiverId: 3,
+                  //       timestamp: DateTime.now(),
+                  //       imageUrl: 'https://images.unsplash.com/photo-1566633806327-68e152aaf26d?q=80&w=3870&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+                  //     )
+                  // )
                 ],
               )
             ],
