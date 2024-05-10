@@ -9,24 +9,58 @@ class Message {
   int receiverId;
   DateTime timestamp;
 
-  Message({required this.messageId, required this.senderId, required this.receiverId, required this.timestamp});
+  Message(
+      {required this.messageId,
+      required this.senderId,
+      required this.receiverId,
+      required this.timestamp});
 
-  factory Message.fromJson(Map<String, dynamic> json) => _$MessageFromJson(json);
+  factory Message.fromJson(Map<String, dynamic> json) =>
+      _$MessageFromJson(json);
 
   Map<String, dynamic> toJson() => _$MessageToJson(this);
 }
 
-// TODO make seiralizable
+@JsonSerializable()
 class TextMessage extends Message {
   final String text;
 
-  TextMessage({required int messageId, required int senderId, required int receiverId, required DateTime timestamp, required this.text})
-      : super(messageId: messageId, senderId: senderId, receiverId: receiverId, timestamp: timestamp);
+  TextMessage(
+      {required int messageId,
+      required int senderId,
+      required int receiverId,
+      required DateTime timestamp,
+      required this.text})
+      : super(
+            messageId: messageId,
+            senderId: senderId,
+            receiverId: receiverId,
+            timestamp: timestamp);
+
+  factory TextMessage.fromJson(Map<String, dynamic> json) =>
+      _$TextMessageFromJson(json);
+
+  Map<String, dynamic> toJson() => _$TextMessageToJson(this);
 }
 
-// TODO make seiralizable
+@JsonSerializable()
 class ImageMessage extends Message {
   final String imageUrl;
 
-  ImageMessage({required int messageId, required int senderId, required int receiverId, required DateTime timestamp, required this.imageUrl}) : super(messageId: messageId, senderId: senderId, receiverId: receiverId, timestamp: timestamp);
+  ImageMessage(
+      {required int messageId,
+      required int senderId,
+      required int receiverId,
+      required DateTime timestamp,
+      required this.imageUrl})
+      : super(
+            messageId: messageId,
+            senderId: senderId,
+            receiverId: receiverId,
+            timestamp: timestamp);
+
+  factory ImageMessage.fromJson(Map<String, dynamic> json) =>
+      _$ImageMessageFromJson(json);
+
+  Map<String, dynamic> toJson() => _$ImageMessageToJson(this);
 }
