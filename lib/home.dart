@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
 
+import 'chats_controller.dart';
+
 class Home extends GetView {
   final auth = Get.find<AuthController>();
 
@@ -33,20 +35,20 @@ class Home extends GetView {
           }, child: Text("Sign out"))
         ],
       ),
-      body: Row(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          ChatsList(),
-          VerticalDivider(),
-          Obx(
-                () => Get.find<AuthController>().user == null
-                ? Text('Не авторизован')
-                : Chat(),
-          ),
-        ],
-      ),
-
-    );
+        body: Obx(
+          () => Get.find<ChatsController>().chats.isEmpty
+              ? Center(child: CircularProgressIndicator())
+              : Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    ChatsList(),
+                    VerticalDivider(),
+                    auth.user == null
+                        ? Center(child: CircularProgressIndicator())
+                        : Chat(),
+                  ],
+                ),
+        ));
   }
 }
