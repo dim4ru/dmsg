@@ -19,6 +19,9 @@ class Chat extends GetView<ChatController> {
     final chatsController = Get.find<ChatsController>();
     final chatController = Get.find<ChatController>();
 
+    //TODO dev only
+    Message message = chatController.messages.value[0];
+
     return Obx(() => (chatsController.targetChat.value == null)
         ? Text("Select chat")
         : Column(
@@ -27,47 +30,36 @@ class Chat extends GetView<ChatController> {
                 image: null,
                 name: "Ivan Ivanov Test",
               ),
-              Column(
-                children: [
-                  // IncomingTextMessage(
-                  //     message: model.TextMessage(
-                  //       messageId: 1,
-                  //       senderId: 2,
-                  //       receiverId: 3,
-                  //       timestamp: DateTime.now(),
-                  //       text: "Wassup? Wassup? Wassup? Wassup? Wassup? Wassup? Wassup? Wassup? Wassup? Wassup? Wassup? Wassup? Wassup? Wassup? Wassup? Wassup? Wassup?"
-                  //       ,
-                  //     )
-                  // ),
-                  // OutcomingTextMessage(
-                  //     message: model.TextMessage(
-                  //       messageId: 1,
-                  //       senderId: 2,
-                  //       receiverId: 3,
-                  //       timestamp: DateTime.now(),
-                  //       text: 'Fine...',
-                  //     )
-                  // ),
-                  // IncomingImageMessage(
-                  //     message: model.ImageMessage(
-                  //       messageId: 1,
-                  //       senderId: 2,
-                  //       receiverId: 3,
-                  //       timestamp: DateTime.now(),
-                  //       imageUrl: 'https://images.unsplash.com/photo-1612528443702-f6741f70a049?q=80&w=3880&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-                  //     )
-                  // ),
-                  // OutcomingImageMessage(
-                  //     message: model.ImageMessage(
-                  //       messageId: 1,
-                  //       senderId: 2,
-                  //       receiverId: 3,
-                  //       timestamp: DateTime.now(),
-                  //       imageUrl: 'https://images.unsplash.com/photo-1566633806327-68e152aaf26d?q=80&w=3870&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-                  //     )
-                  // )
-                ],
-              )
+
+              //TODO dev only
+              (message is model.TextMessage)
+                  ? IncomingTextMessage(
+                      message: model.TextMessage(
+                      messageId: message.messageId,
+                      senderId: message.senderId,
+                      receiverId: message.receiverId,
+                      timestamp: message.timestamp,
+                      text: message.text,
+                    ))
+                  : const Text("Couldn't display the message"),
+              // SizedBox(
+              //   height: 300,
+              //   child: ListView.builder(
+              //     shrinkWrap: true,
+              //     itemCount: chatController.messages.value.length,
+              //     itemBuilder: (BuildContext context, int index) {
+              //       Message message = chatController.messages.value[index];
+              //
+              //       if (message is model.TextMessage) {
+              //         return IncomingTextMessage(message: model.TextMessage(messageId: message.messageId, senderId: message.senderId, receiverId: message.receiverId, timestamp: message.timestamp, text: message.text, ));
+              //       } else if (message is model.ImageMessage) {
+              //         return IncomingImageMessage(message: model.ImageMessage(messageId: message.messageId, senderId: message.senderId, receiverId: message.receiverId, timestamp: message.timestamp, imageUrl: message.imageUrl));
+              //       } else {
+              //         return const Text("Couldn't display the message");
+              //       }
+              //     },
+              //   ),
+              // )
             ],
           ));
   }
