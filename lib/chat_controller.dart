@@ -10,10 +10,15 @@ import 'package:http/http.dart' as http;
 class ChatController extends GetxController {
   final chatName = RxnString(null);
   final messages = RxList<Message>();
+  final _loading = false.obs;
 
   ChatController(Chat targetChat) {
+    _loading.value = true;
     getMessages(targetChat.chatId);
+    _loading.value = false;
   }
+
+  bool get loading => _loading.value;
 
   Future getMessages(int chatId) async {
     final resp = await http.get(Uri.parse(databaseUrl + '/chats.json?orderBy=%22chatId%22&equalTo=${chatId.toString()}'));

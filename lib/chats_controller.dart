@@ -10,10 +10,15 @@ class ChatsController extends GetxController {
   final noChats = false.obs;
   final targetChat = Rx<Chat?>(null);
   final auth = Get.find<AuthController>();
+  final _loading = false.obs;
 
   ChatsController() {
+    _loading.value = true;
     getChats();
+    _loading.value = false;
   }
+
+  bool get loading => _loading.value;
 
   Future getChats() async {
     final url = Uri.https("dmsg-1d1c5-default-rtdb.europe-west1.firebasedatabase.app", "chats.json");

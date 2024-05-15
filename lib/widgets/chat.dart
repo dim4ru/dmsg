@@ -45,9 +45,9 @@ class Chat extends GetView<ChatController> {
                       itemBuilder: (BuildContext context, int index) {
                         Message message = chatController.messages.value[index];
 
-                        if (message is model.TextMessage) {
-                          return IncomingTextMessage(
-                              message: model.TextMessage(
+                    if (message is model.TextMessage) {
+                      return IncomingTextMessage(
+                          message: model.TextMessage(
                             messageId: message.messageId,
                             senderId: message.senderId,
                             receiverId: message.receiverId,
