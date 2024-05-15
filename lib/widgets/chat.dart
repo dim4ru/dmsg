@@ -31,7 +31,7 @@ class Chat extends GetView<ChatController> {
                     padding: const EdgeInsets.all(16),
                     alignment: Alignment.centerLeft,
                     child: Text(
-                      chatController.chatName.value ?? "-",
+                      chatController.title.value,
                       style: Theme.of(context).textTheme.titleLarge,
                     ),
                   ),
@@ -44,7 +44,6 @@ class Chat extends GetView<ChatController> {
                       itemCount: chatController.messages.value.length,
                       itemBuilder: (BuildContext context, int index) {
                         Message message = chatController.messages.value[index];
-
                     if (message is model.TextMessage) {
                       return IncomingTextMessage(
                           message: model.TextMessage(

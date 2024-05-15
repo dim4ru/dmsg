@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:dmsg/helpers.dart';
+import 'package:dmsg/services/auth.dart';
 import 'package:get/get.dart';
 
 import 'constants.dart';
@@ -8,13 +10,16 @@ import 'models/message.dart';
 import 'package:http/http.dart' as http;
 
 class ChatController extends GetxController {
-  final chatName = RxnString(null);
+  final chat = Rxn<Chat>();
   final messages = RxList<Message>();
   final _loading = false.obs;
+  final title = RxString('');
 
   ChatController(Chat targetChat) {
     _loading.value = true;
+    chat.value = targetChat;
     getMessages(targetChat.chatId);
+    title.value = getChatTitle(chat.value!, Get.find<AuthController>().user!.uid);
     _loading.value = false;
   }
 
