@@ -20,7 +20,7 @@ void main() async {
   );
   Get.lazyPut(() => AuthController(), fenix: true);
   Get.lazyPut(() => ChatsController(), fenix: true);
-  Get.lazyPut(() => ChatController(), fenix: true);
+  // Get.lazyPut(() => ChatController(), fenix: true);
 
   runApp(const MyApp());
 }

@@ -18,7 +18,7 @@ class ChatsList extends GetView<ChatsController> {
         itemCount: controller.chats.length,
         itemBuilder: (BuildContext context, int index) {
           return GestureDetector(
-            onTap: () => controller.targetChat.value = controller.chats[index].chatId,
+            onTap: () => controller.targetChat.value = controller.chats[index],
             child: ChatListItem(
               chat: controller.chats[index],
             ),

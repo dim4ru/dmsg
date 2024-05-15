@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:get/get.dart';
 
 import 'constants.dart';
+import 'models/chat.dart';
 import 'models/message.dart';
 import 'package:http/http.dart' as http;
 
@@ -10,8 +11,8 @@ class ChatController extends GetxController {
   final chatName = RxnString(null);
   final messages = RxList<Message>();
 
-  ChatController() {
-    getMessages(1);
+  ChatController(Chat targetChat) {
+    getMessages(targetChat.chatId);
   }
 
   Future getMessages(int chatId) async {

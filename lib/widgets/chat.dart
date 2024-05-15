@@ -17,46 +17,59 @@ class Chat extends GetView<ChatController> {
   @override
   Widget build(BuildContext context) {
     final chatsController = Get.find<ChatsController>();
-    final chatController = Get.find<ChatController>();
+    final ChatController? chatController = chatsController.targetChat.value != null ? ChatController(chatsController.targetChat.value!) : null;
 
     return Obx(() => (chatsController.targetChat.value == null)
         ? Text("Select chat")
-        : Expanded(
-      child: Column(
-        children: [
+        : chatController == null
+            ? const Center(
+                child: CircularProgressIndicator(),
+              )
+            : Expanded(
+                child: Column(
+                children: [
+                  Container(
+                    padding: const EdgeInsets.all(16),
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      chatController.chatName.value ?? "-",
+                      style: Theme.of(context).textTheme.headline6,
+                    ),
+                  ),
+                  const Divider(
+                    height: 1,
+                  ),
+                  Expanded(
+                    child: ListView.builder(
+                      shrinkWrap: true,
+                      itemCount: chatController.messages.value.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        Message message = chatController.messages.value[index];
 
-          Container(
-            padding: const EdgeInsets.all(16),
-            alignment: Alignment.centerLeft,
-            child: Text(
-              chatController.chatName.value ?? "-",
-              style: Theme.of(context).textTheme.headline6,
-            ),
-          ),
-          const Divider(
-            height: 1,
-          ),
-
-          Expanded(
-            child: ListView.builder(
-              shrinkWrap: true,
-              itemCount: chatController.messages.value.length,
-              itemBuilder: (BuildContext context, int index) {
-                Message message = chatController.messages.value[index];
-
-                if (message is model.TextMessage) {
-                  return IncomingTextMessage(message: model.TextMessage(messageId: message.messageId, senderId: message.senderId, receiverId: message.receiverId, timestamp: message.timestamp, text: message.text, ));
-                } else if (message is model.ImageMessage) {
-                  print(message.imageUrl);
-                  return IncomingImageMessage(message: model.ImageMessage(messageId: message.messageId, senderId: message.senderId, receiverId: message.receiverId, timestamp: message.timestamp, imageUrl: message.imageUrl));
-                } else {
-                  return const Text("Couldn't display the message");
-                }
-              },
-            ),
-          )
-        ],
-      )),
-    );
+                        if (message is model.TextMessage) {
+                          return IncomingTextMessage(
+                              message: model.TextMessage(
+                            messageId: message.messageId,
+                            senderId: message.senderId,
+                            receiverId: message.receiverId,
+                            timestamp: message.timestamp,
+                            text: message.text,
+                          ));
+                        } else if (message is model.ImageMessage) {
+                          return IncomingImageMessage(
+                              message: model.ImageMessage(
+                                  messageId: message.messageId,
+                                  senderId: message.senderId,
+                                  receiverId: message.receiverId,
+                                  timestamp: message.timestamp,
+                                  imageUrl: message.imageUrl));
+                        } else {
+                          return const Text("Couldn't display the message");
+                        }
+                      },
+                    ),
+                  )
+                ],
+              )));
   }
 }
