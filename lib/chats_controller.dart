@@ -7,6 +7,7 @@ import 'package:http/http.dart' as http;
 
 class ChatsController extends GetxController {
   final chats = RxList<Chat>();
+  final noChats = false.obs;
   final targetChat = Rx<Chat?>(null);
   final auth = Get.find<AuthController>();
 
@@ -20,5 +21,6 @@ class ChatsController extends GetxController {
     final List<dynamic> responseData = json.decode(resp.body);
     List<Chat> chatsList = responseData.map((userData) => Chat.fromJson(userData)).toList();
     chats.value = chatsList.where((chat) => chat.participants.any((user) => user.uid == auth.user?.uid)).toList();
+    if(chats.value.isEmpty) noChats(true);
   }
 }

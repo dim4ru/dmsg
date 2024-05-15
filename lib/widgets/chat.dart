@@ -1,5 +1,4 @@
 import 'package:dmsg/chat_controller.dart';
-import 'package:dmsg/widgets/chat_header.dart';
 import 'package:dmsg/widgets/messages/image_message.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -20,7 +19,7 @@ class Chat extends GetView<ChatController> {
     final ChatController? chatController = chatsController.targetChat.value != null ? ChatController(chatsController.targetChat.value!) : null;
 
     return Obx(() => (chatsController.targetChat.value == null)
-        ? Text("Select chat")
+        ? const Center(child: Text("Select chat"),)
         : chatController == null
             ? const Center(
                 child: CircularProgressIndicator(),
@@ -33,7 +32,7 @@ class Chat extends GetView<ChatController> {
                     alignment: Alignment.centerLeft,
                     child: Text(
                       chatController.chatName.value ?? "-",
-                      style: Theme.of(context).textTheme.headline6,
+                      style: Theme.of(context).textTheme.titleLarge,
                     ),
                   ),
                   const Divider(

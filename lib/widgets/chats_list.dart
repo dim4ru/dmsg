@@ -6,26 +6,29 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
 
 class ChatsList extends GetView<ChatsController> {
-
   @override
   Widget build(BuildContext context) {
     final controller = Get.find<ChatsController>();
-    return Obx(() => controller.chats.isEmpty
-        ? Center(child: CircularProgressIndicator())
-        : Expanded(
-      child: ListView.builder(
-        shrinkWrap: true,
-        itemCount: controller.chats.length,
-        itemBuilder: (BuildContext context, int index) {
-          return GestureDetector(
-            onTap: () => controller.targetChat.value = controller.chats[index],
-            child: ChatListItem(
-              chat: controller.chats[index],
-            ),
-          );
-        },
-      ),
-    ),
+    return Obx(
+      () => controller.noChats.value
+          ? Center(child: const Text("You have no chats yet"))
+          : controller.chats.isEmpty
+              ? Center(child: CircularProgressIndicator())
+              : Expanded(
+                  child: ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: controller.chats.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      return GestureDetector(
+                        onTap: () => controller.targetChat.value =
+                            controller.chats[index],
+                        child: ChatListItem(
+                          chat: controller.chats[index],
+                        ),
+                      );
+                    },
+                  ),
+                ),
     );
   }
 }
