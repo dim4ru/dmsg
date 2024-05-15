@@ -12,8 +12,7 @@ class ChatsList extends GetView<ChatsController> {
     final controller = Get.find<ChatsController>();
     return Obx(() => controller.chats.isEmpty
         ? Center(child: CircularProgressIndicator())
-        : Container(
-      width: 250,
+        : Expanded(
       child: ListView.builder(
         shrinkWrap: true,
         itemCount: controller.chats.length,

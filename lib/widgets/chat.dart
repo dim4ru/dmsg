@@ -19,48 +19,44 @@ class Chat extends GetView<ChatController> {
     final chatsController = Get.find<ChatsController>();
     final chatController = Get.find<ChatController>();
 
-    //TODO dev only
-    Message message = chatController.messages.value[0];
-
     return Obx(() => (chatsController.targetChat.value == null)
         ? Text("Select chat")
-        : Column(
-            children: [
-              ChatHeader(
-                image: null,
-                name: "Ivan Ivanov Test",
-              ),
+        : Expanded(
+      child: Column(
+        children: [
 
-              //TODO dev only
-              (message is model.TextMessage)
-                  ? IncomingTextMessage(
-                      message: model.TextMessage(
-                      messageId: message.messageId,
-                      senderId: message.senderId,
-                      receiverId: message.receiverId,
-                      timestamp: message.timestamp,
-                      text: message.text,
-                    ))
-                  : const Text("Couldn't display the message"),
-              // SizedBox(
-              //   height: 300,
-              //   child: ListView.builder(
-              //     shrinkWrap: true,
-              //     itemCount: chatController.messages.value.length,
-              //     itemBuilder: (BuildContext context, int index) {
-              //       Message message = chatController.messages.value[index];
-              //
-              //       if (message is model.TextMessage) {
-              //         return IncomingTextMessage(message: model.TextMessage(messageId: message.messageId, senderId: message.senderId, receiverId: message.receiverId, timestamp: message.timestamp, text: message.text, ));
-              //       } else if (message is model.ImageMessage) {
-              //         return IncomingImageMessage(message: model.ImageMessage(messageId: message.messageId, senderId: message.senderId, receiverId: message.receiverId, timestamp: message.timestamp, imageUrl: message.imageUrl));
-              //       } else {
-              //         return const Text("Couldn't display the message");
-              //       }
-              //     },
-              //   ),
-              // )
-            ],
-          ));
+          Container(
+            padding: const EdgeInsets.all(16),
+            alignment: Alignment.centerLeft,
+            child: Text(
+              chatController.chatName.value ?? "-",
+              style: Theme.of(context).textTheme.headline6,
+            ),
+          ),
+          const Divider(
+            height: 1,
+          ),
+
+          Expanded(
+            child: ListView.builder(
+              shrinkWrap: true,
+              itemCount: chatController.messages.value.length,
+              itemBuilder: (BuildContext context, int index) {
+                Message message = chatController.messages.value[index];
+
+                if (message is model.TextMessage) {
+                  return IncomingTextMessage(message: model.TextMessage(messageId: message.messageId, senderId: message.senderId, receiverId: message.receiverId, timestamp: message.timestamp, text: message.text, ));
+                } else if (message is model.ImageMessage) {
+                  print(message.imageUrl);
+                  return IncomingImageMessage(message: model.ImageMessage(messageId: message.messageId, senderId: message.senderId, receiverId: message.receiverId, timestamp: message.timestamp, imageUrl: message.imageUrl));
+                } else {
+                  return const Text("Couldn't display the message");
+                }
+              },
+            ),
+          )
+        ],
+      )),
+    );
   }
 }
