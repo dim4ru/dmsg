@@ -8,7 +8,6 @@ import 'package:dmsg/widgets/messages/text_message.dart';
 
 import '../chats_controller.dart';
 import '../models/message.dart' as model;
-import '../models/message.dart';
 
 class Chat extends GetView<ChatController> {
   const Chat({super.key});
@@ -24,6 +23,15 @@ class Chat extends GetView<ChatController> {
       } else if (chatController == null) {
         return const Center(child: CircularProgressIndicator(),);
       } else {
+        List<Widget> messages = chatController.messages.value.map((message) {
+          if (message is model.TextMessage) {
+            return IncomingTextMessage(message: message);
+          } else if (message is model.ImageMessage) {
+            return IncomingImageMessage(message: message);
+          } else {
+            throw Exception("Unknown message type: ${message.runtimeType}");
+          }
+        }).toList();
         return Expanded(
             child: Column(
               children: [
@@ -39,33 +47,36 @@ class Chat extends GetView<ChatController> {
                   height: 1,
                 ),
                 Expanded(
-                  child: ListView.builder(
-                    shrinkWrap: true,
-                    itemCount: chatController.messages.value.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      Message message = chatController.messages.value[index];
-                      if (message is model.TextMessage) {
-                        return IncomingTextMessage(
-                            message: model.TextMessage(
-                              messageId: message.messageId,
-                              senderId: message.senderId,
-                              receiverId: message.receiverId,
-                              timestamp: message.timestamp,
-                              text: message.text,
-                            ));
-                      } else if (message is model.ImageMessage) {
-                        return IncomingImageMessage(
-                            message: model.ImageMessage(
-                                messageId: message.messageId,
-                                senderId: message.senderId,
-                                receiverId: message.receiverId,
-                                timestamp: message.timestamp,
-                                imageUrl: message.imageUrl));
-                      } else {
-                        return const Text("Couldn't display the message");
-                      }
-                    },
+                  child: ListView(
+                    children: messages.map((message) => message).toList(),
                   ),
+                  // child: ListView.builder(
+                  //   shrinkWrap: true,
+                  //   itemCount: chatController.messages.value.length,
+                  //   itemBuilder: (BuildContext context, int index) {
+                  //     Message message = chatController.messages.value[index];
+                  //     if (message is model.TextMessage) {
+                  //       return IncomingTextMessage(
+                  //           message: model.TextMessage(
+                  //             messageId: message.messageId,
+                  //             senderId: message.senderId,
+                  //             receiverId: message.receiverId,
+                  //             timestamp: message.timestamp,
+                  //             text: message.text,
+                  //           ));
+                  //     } else if (message is model.ImageMessage) {
+                  //       return IncomingImageMessage(
+                  //           message: model.ImageMessage(
+                  //               messageId: message.messageId,
+                  //               senderId: message.senderId,
+                  //               receiverId: message.receiverId,
+                  //               timestamp: message.timestamp,
+                  //               imageUrl: message.imageUrl));
+                  //     } else {
+                  //       return const Text("Couldn't display the message");
+                  //     }
+                  //   },
+                  // ),
                 )
               ],
             ));
