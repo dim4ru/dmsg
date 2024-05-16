@@ -1,4 +1,6 @@
 import 'package:dmsg/chat_controller.dart';
+import 'package:dmsg/direction.dart';
+import 'package:dmsg/services/auth.dart';
 import 'package:dmsg/widgets/messages/image_message.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -14,6 +16,7 @@ class Chat extends GetView<ChatController> {
 
   @override
   Widget build(BuildContext context) {
+    final authController = Get.find<AuthController>();
     final chatsController = Get.find<ChatsController>();
     final ChatController? chatController = chatsController.targetChat.value != null ? ChatController(chatsController.targetChat.value!) : null;
 
@@ -25,10 +28,22 @@ class Chat extends GetView<ChatController> {
       } else {
         List<Widget> messages = chatController.messages.value.map((message) {
           if (message is model.TextMessage) {
+            if (getDirection(message, authController.user!.uid) == Direction.outcoming) {
+              return OutcomingTextMessage(message: message);
+            }
             return IncomingTextMessage(message: message);
+
           } else if (message is model.ImageMessage) {
+            if (getDirection(message, authController.user!.uid) == Direction.outcoming) {
+              return OutcomingImageMessage(message: message);
+            }
             return IncomingImageMessage(message: message);
           } else {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text("Some messages can't be displayed because an error occured"),
+              ),
+            );
             throw Exception("Unknown message type: ${message.runtimeType}");
           }
         }).toList();
