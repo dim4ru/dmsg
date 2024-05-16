@@ -43,8 +43,8 @@ class IncomingTextMessage extends TextMessage {
   }
 }
 
-class OutcomingTextMessage extends TextMessage {
-  const OutcomingTextMessage({Key? key, required model.TextMessage message}) : super(key: key, message: message);
+class OutgoingTextMessage extends TextMessage {
+  const OutgoingTextMessage({Key? key, required model.TextMessage message}) : super(key: key, message: message);
 
   @override
   Widget build(BuildContext context) {

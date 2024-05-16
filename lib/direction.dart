@@ -1,10 +1,10 @@
 import 'models/message.dart';
 
-enum Direction { outcoming, incoming }
+enum Direction { outgoing, incoming }
 
 Direction getDirection(Message message, String currentUserUID) {
   if (message.senderId == currentUserUID) {
-    return Direction.outcoming;
+    return Direction.outgoing;
   }
   return Direction.incoming;
 }

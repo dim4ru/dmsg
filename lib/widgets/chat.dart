@@ -28,14 +28,14 @@ class Chat extends GetView<ChatController> {
       } else {
         List<Widget> messages = chatController.messages.value.map((message) {
           if (message is model.TextMessage) {
-            if (getDirection(message, authController.user!.uid) == Direction.outcoming) {
-              return OutcomingTextMessage(message: message);
+            if (getDirection(message, authController.user!.uid) == Direction.outgoing) {
+              return OutgoingTextMessage(message: message);
             }
             return IncomingTextMessage(message: message);
 
           } else if (message is model.ImageMessage) {
-            if (getDirection(message, authController.user!.uid) == Direction.outcoming) {
-              return OutcomingImageMessage(message: message);
+            if (getDirection(message, authController.user!.uid) == Direction.outgoing) {
+              return OutgoingImageMessage(message: message);
             }
             return IncomingImageMessage(message: message);
           } else {

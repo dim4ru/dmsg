@@ -56,8 +56,8 @@ class IncomingImageMessage extends ImageMessage {
   }
 }
 
-class OutcomingImageMessage extends ImageMessage {
-  const OutcomingImageMessage({Key? key, required model.ImageMessage message}) : super(key: key, message: message);
+class OutgoingImageMessage extends ImageMessage {
+  const OutgoingImageMessage({Key? key, required model.ImageMessage message}) : super(key: key, message: message);
 
   @override
   Widget build(BuildContext context) {
