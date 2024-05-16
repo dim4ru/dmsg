@@ -19,7 +19,7 @@ class ChatController extends GetxController {
     _loading.value = true;
     chat.value = targetChat;
     getMessages(targetChat.chatId);
-    title.value = getChatTitle(chat.value!, Get.find<AuthController>().user!.uid);
+    title.value = getChatName(chat.value!, Get.find<AuthController>().user!.uid);
     _loading.value = false;
   }
 

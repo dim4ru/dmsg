@@ -1,9 +1,17 @@
 import 'models/chat.dart';
+import 'models/user.dart';
 
-String getChatTitle(Chat chat, String currentUserUID) {
-  var result = chat.participants
-  //TODO DEV ONLY user2732
+String getChatName(Chat chat, String currentUserUID) {
+  var participants = chat.participants
       .where((element) => element.uid != currentUserUID)
       .toList();
-  return result.map((e) => e.username).join(", ");
+  return participants.map((e) => e.username).join(", ");
+}
+
+User getChatParticipant(Chat chat, String currentUserUID) {
+  var participants = chat.participants
+      .where((element) => element.uid != currentUserUID)
+      .toList();
+  //TODO Берется первый участник чата, что не подходит для групповых чатов
+  return participants[0];
 }
