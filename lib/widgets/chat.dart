@@ -18,56 +18,58 @@ class Chat extends GetView<ChatController> {
     final chatsController = Get.find<ChatsController>();
     final ChatController? chatController = chatsController.targetChat.value != null ? ChatController(chatsController.targetChat.value!) : null;
 
-    return Obx(() => (chatsController.targetChat.value == null)
-        ? const Center(child: Text("Select chat"),)
-        : chatController == null
-            ? const Center(
-                child: CircularProgressIndicator(),
-              )
-            : Expanded(
-                child: Column(
-                children: [
-                  Container(
-                    padding: const EdgeInsets.all(16),
-                    alignment: Alignment.centerLeft,
-                    child: Text(
-                      chatController.title.value,
-                      style: Theme.of(context).textTheme.titleLarge,
-                    ),
+    return Obx(() {
+      if (chatsController.targetChat.value == null){
+        return const Center(child: Text("Select chat"),);
+      } else if (chatController == null) {
+        return const Center(child: CircularProgressIndicator(),);
+      } else {
+        return Expanded(
+            child: Column(
+              children: [
+                Container(
+                  padding: const EdgeInsets.all(16),
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    chatController.title.value,
+                    style: Theme.of(context).textTheme.titleLarge,
                   ),
-                  const Divider(
-                    height: 1,
+                ),
+                const Divider(
+                  height: 1,
+                ),
+                Expanded(
+                  child: ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: chatController.messages.value.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      Message message = chatController.messages.value[index];
+                      if (message is model.TextMessage) {
+                        return IncomingTextMessage(
+                            message: model.TextMessage(
+                              messageId: message.messageId,
+                              senderId: message.senderId,
+                              receiverId: message.receiverId,
+                              timestamp: message.timestamp,
+                              text: message.text,
+                            ));
+                      } else if (message is model.ImageMessage) {
+                        return IncomingImageMessage(
+                            message: model.ImageMessage(
+                                messageId: message.messageId,
+                                senderId: message.senderId,
+                                receiverId: message.receiverId,
+                                timestamp: message.timestamp,
+                                imageUrl: message.imageUrl));
+                      } else {
+                        return const Text("Couldn't display the message");
+                      }
+                    },
                   ),
-                  Expanded(
-                    child: ListView.builder(
-                      shrinkWrap: true,
-                      itemCount: chatController.messages.value.length,
-                      itemBuilder: (BuildContext context, int index) {
-                        Message message = chatController.messages.value[index];
-                    if (message is model.TextMessage) {
-                      return IncomingTextMessage(
-                          message: model.TextMessage(
-                            messageId: message.messageId,
-                            senderId: message.senderId,
-                            receiverId: message.receiverId,
-                            timestamp: message.timestamp,
-                            text: message.text,
-                          ));
-                        } else if (message is model.ImageMessage) {
-                          return IncomingImageMessage(
-                              message: model.ImageMessage(
-                                  messageId: message.messageId,
-                                  senderId: message.senderId,
-                                  receiverId: message.receiverId,
-                                  timestamp: message.timestamp,
-                                  imageUrl: message.imageUrl));
-                        } else {
-                          return const Text("Couldn't display the message");
-                        }
-                      },
-                    ),
-                  )
-                ],
-              )));
+                )
+              ],
+            ));
+      }
+    });
   }
 }
