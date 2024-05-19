@@ -5,10 +5,12 @@ import 'package:dmsg/services/auth.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 
+import 'constants.dart';
 import 'models/message.dart';
 
 class ChatsController extends GetxController {
   final chats = RxList<Chat>();
+  final messages = RxList<Message>();
   final noChats = false.obs;
   final targetChat = Rx<Chat?>(null);
   final auth = Get.find<AuthController>();
@@ -39,6 +41,25 @@ class ChatsController extends GetxController {
       return "Image";
     } else {
       return "Some message";
+    }
+  }
+
+  Future getMessages() async {
+    if (targetChat.value != null) {
+      List<Message> messagesList = [];
+
+      final resp = await http.get(Uri.parse(databaseUrl + '/chats.json?orderBy=%22chatId%22&equalTo=${targetChat.value!.chatId.toString()}'));
+      final Map<String, dynamic> responseData = json.decode(resp.body);
+      for (Map<String, dynamic> chatData in responseData.values) {
+        for (Map<String, dynamic> messageData in chatData["messages"]) {
+          if (messageData["imageUrl"] != null) {
+            messagesList.add(ImageMessage.fromJson(messageData));
+          } else {
+            messagesList.add(TextMessage.fromJson(messageData));
+          }
+        }
+      }
+      messages.value = messagesList;
     }
   }
 }
