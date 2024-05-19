@@ -16,16 +16,15 @@ import 'message_input.dart';
 class Chat extends GetView<ChatsController> {
   // final chat = Rxn<model.Chat>();
   final messages = RxList<Message>();
-  final _loading = false.obs;
+  // final _loading = false.obs;
   final title = RxString('');
 
   final authController = Get.find<AuthController>();
   final chatsController = Get.find<ChatsController>();
 
   Chat() {
-    chatsController.getMessages();
-    messages.value = chatsController.messages.value;
     if (chatsController.targetChat.value != null) title.value = getChatName(chatsController.targetChat.value!, Get.find<AuthController>().user!.uid);
+    messages.value = chatsController.messages.value;
   }
 
   // bool get loading => _loading.value;

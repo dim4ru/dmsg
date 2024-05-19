@@ -47,18 +47,20 @@ class ChatsController extends GetxController {
   Future getMessages() async {
     if (targetChat.value != null) {
       List<Message> messagesList = [];
-
-      final resp = await http.get(Uri.parse(databaseUrl + '/chats.json?orderBy=%22chatId%22&equalTo=${targetChat.value!.chatId.toString()}'));
-      final Map<String, dynamic> responseData = json.decode(resp.body);
-      for (Map<String, dynamic> chatData in responseData.values) {
-        for (Map<String, dynamic> messageData in chatData["messages"]) {
-          if (messageData["imageUrl"] != null) {
-            messagesList.add(ImageMessage.fromJson(messageData));
-          } else {
-            messagesList.add(TextMessage.fromJson(messageData));
+      if (messagesList.isEmpty) {
+        final resp = await http.get(Uri.parse(databaseUrl + '/chats.json?orderBy=%22chatId%22&equalTo=${targetChat.value!.chatId.toString()}'));
+        final Map<String, dynamic> responseData = json.decode(resp.body);
+        for (Map<String, dynamic> chatData in responseData.values) {
+          for (Map<String, dynamic> messageData in chatData["messages"]) {
+            if (messageData["imageUrl"] != null) {
+              messagesList.add(ImageMessage.fromJson(messageData));
+            } else {
+              messagesList.add(TextMessage.fromJson(messageData));
+            }
           }
         }
       }
+      print(messagesList[0].timestamp);
       messages.value = messagesList;
     }
   }

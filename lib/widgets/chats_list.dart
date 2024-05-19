@@ -25,8 +25,10 @@ class ChatsList extends GetView<ChatsController> {
                       Chat chat = controller.chats[index];
                       String currentUserUID = controller.auth.user!.uid;
                       return GestureDetector(
-                        onTap: () => controller.targetChat.value =
-                            controller.chats[index],
+                        onTap: () {
+                          controller.targetChat.value = controller.chats[index];
+                          controller.getMessages();
+                        },
                         child: ChatListItem(
                             profileUrl: getChatParticipant(chat, currentUserUID).avatar,
                             chatName: getChatName(chat, currentUserUID),
