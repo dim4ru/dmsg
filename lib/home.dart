@@ -30,6 +30,7 @@ class Home extends GetView {
                       const SnackBar(
                           content: Text('You have signed out successfully')),
                     );
+                    Get.deleteAll(force: true);
                     Get.to(() => SignIn());
                   }
                 },

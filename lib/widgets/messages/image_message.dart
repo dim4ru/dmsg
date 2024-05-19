@@ -64,6 +64,7 @@ class OutgoingImageMessage extends ImageMessage {
   Widget build(BuildContext context) {
     return Row(
       children: [
+        Spacer(),
         Padding(
           padding: const EdgeInsets.only(right: 5),
           child: Text(dateTimeToTimeString(message.timestamp), style: TextStyle(fontSize: 10),),

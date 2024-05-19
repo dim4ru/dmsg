@@ -16,8 +16,6 @@ void main() async {
           projectId: "dmsg-1d1c5",
           databaseURL:"https://dmsg-1d1c5-default-rtdb.europe-west1.firebasedatabase.app/")
   );
-  Get.lazyPut(() => AuthController(), fenix: true);
-  Get.lazyPut(() => ChatsController(), fenix: true);
 
   runApp(const MyApp());
 }
@@ -28,6 +26,9 @@ class MyApp extends GetView {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    Get.lazyPut(() => AuthController(), fenix: true);
+    Get.lazyPut(() => ChatsController(), fenix: true);
+
     return GetMaterialApp(
       title: 'Chats - DMSG',
         theme: ThemeData.dark().copyWith(
