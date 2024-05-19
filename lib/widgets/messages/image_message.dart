@@ -22,6 +22,7 @@ class IncomingImageMessage extends ImageMessage {
   Widget build(BuildContext context) {
     return Row(
       children: [
+        SizedBox(width: messageBubbleChatMargin),
         GestureDetector(
           // onLongPress: () => messageController.deleteMessage(message.id),
           child: Container(
@@ -92,6 +93,7 @@ class OutgoingImageMessage extends ImageMessage {
             ),
           ),
         ),
+        SizedBox(width: messageBubbleChatMargin),
       ],
     );
   }

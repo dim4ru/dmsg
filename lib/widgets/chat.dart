@@ -9,6 +9,7 @@ import 'package:dmsg/widgets/messages/text_message.dart';
 
 import '../chats_controller.dart';
 import '../models/message.dart' as model;
+import 'constants.dart';
 import 'message_input.dart';
 
 class Chat extends GetView<ChatsController> {
@@ -41,7 +42,7 @@ class Chat extends GetView<ChatsController> {
             return IncomingImageMessage(message: message);
           } else {
             ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
+              const SnackBar(
                 content: Text("Some messages can't be displayed because an error occured"),
               ),
             );
@@ -49,27 +50,31 @@ class Chat extends GetView<ChatsController> {
           }
         }).toList();
         return Expanded(
-            child: Column(
-              children: [
-                Container(
-                  padding: const EdgeInsets.all(16),
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    chatsController.chatTitle.value,
-                    style: Theme.of(context).textTheme.titleLarge,
-                  ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                alignment: Alignment.centerLeft,
+                padding: const EdgeInsets.all(messageBubbleChatMargin),
+                child: Text(
+                  chatsController.chatTitle.value,
+                  style: Theme.of(context).textTheme.titleLarge,
                 ),
-                const Divider(
-                  height: 1,
+              ),
+              const Divider(
+                height: 1,
+              ),
+              Expanded(
+                child: ListView(
+                  children: [
+                    SizedBox(height: messageBubbleChatMargin), // Add this line
+                    ...messagesList.map((message) => message).toList(), // Replace ... with your actual list items
+                  ],
                 ),
-                Expanded(
-                  child: ListView(
-                    children: messagesList.map((message) => message).toList(),
-                  ),
-                ),
-                MessageInput(),
-              ],
-            )
+              ),
+              MessageInput(),
+            ],
+          ),
         );
       }
     });

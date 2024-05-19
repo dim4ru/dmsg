@@ -18,6 +18,7 @@ class IncomingTextMessage extends TextMessage {
   Widget build(BuildContext context) {
     return Row(
       children: [
+        SizedBox(width: messageBubbleChatMargin),
         GestureDetector(
           // onLongPress: () => messageController.deleteMessage(message.id),
           child: Container(
@@ -50,6 +51,7 @@ class OutgoingTextMessage extends TextMessage {
   Widget build(BuildContext context) {
     return Row(
       children: [
+        Spacer(),
         Padding(
           padding: const EdgeInsets.only(right: 5),
           child: Text(dateTimeToTimeString(message.timestamp), style: const TextStyle(fontSize: 10),),
@@ -70,6 +72,7 @@ class OutgoingTextMessage extends TextMessage {
             child: Text(message.text),
           ),
         ),
+        SizedBox(width: messageBubbleChatMargin),
       ],
     );
   }
