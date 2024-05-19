@@ -26,7 +26,7 @@ class IncomingImageMessage extends ImageMessage {
         GestureDetector(
           // onLongPress: () => messageController.deleteMessage(message.id),
           child: Container(
-            padding: const EdgeInsets.symmetric(horizontal: 4.0, vertical: 4.0),
+            padding: const EdgeInsets.symmetric(horizontal: imageBubbleBorder, vertical: imageBubbleBorder),
             decoration: BoxDecoration(
               color: Theme.of(context).colorScheme.primary,
               borderRadius: const BorderRadius.only(
@@ -72,7 +72,7 @@ class OutgoingImageMessage extends ImageMessage {
         GestureDetector(
           // onLongPress: () => messageController.deleteMessage(message.id),
           child: Container(
-            padding: const EdgeInsets.symmetric(horizontal: 4.0, vertical: 4.0),
+            padding: const EdgeInsets.symmetric(horizontal: imageBubbleBorder, vertical: imageBubbleBorder),
             decoration: BoxDecoration(
               color: Theme.of(context).colorScheme.secondary,
               borderRadius: const BorderRadius.only(
