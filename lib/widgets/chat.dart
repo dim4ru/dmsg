@@ -24,7 +24,7 @@ class Chat extends GetView<ChatsController> {
     return Obx(() {
       if (chatsController.targetChat.value == null){
         return const Center(child: Text("Select chat"),);
-      } else if (chatsController.messages.value == null) {
+      } else if (chatsController.messages.value.isEmpty) {
         return const Center(child: CircularProgressIndicator(),);
       } else {
         List<Widget> messagesList = chatsController.messages.value.map((message) {
@@ -67,7 +67,7 @@ class Chat extends GetView<ChatsController> {
                     children: messagesList.map((message) => message).toList(),
                   ),
                 ),
-                // MessageInput(),
+                MessageInput(),
               ],
             )
         );

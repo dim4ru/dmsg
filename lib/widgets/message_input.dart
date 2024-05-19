@@ -13,9 +13,11 @@ class MessageInput extends GetView<MessageInputController> {
       padding: const EdgeInsets.all(16),
       alignment: Alignment.centerLeft,
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
           IconButton(onPressed: (){}, icon: const Icon(Icons.add)),
           Container(
+            width: MediaQuery.sizeOf(context).width * 0.67,
             margin: EdgeInsets.only(bottom: 1, left: 10, right: 10),
             alignment: Alignment.bottomLeft,
             child: TextFormField(

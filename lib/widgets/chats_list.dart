@@ -17,7 +17,8 @@ class ChatsList extends GetView<ChatsController> {
           ? Center(child: const Text("You have no chats yet"))
           : controller.chats.isEmpty
               ? Center(child: CircularProgressIndicator())
-              : Expanded(
+              : Container(
+                  width: MediaQuery.sizeOf(context).width * 0.2,
                   child: ListView.builder(
                     shrinkWrap: true,
                     itemCount: controller.chats.length,
@@ -30,9 +31,10 @@ class ChatsList extends GetView<ChatsController> {
                           controller.getChatContent();
                         },
                         child: ChatListItem(
-                            profileUrl: getChatParticipant(chat, currentUserUID).avatar,
-                            chatName: getChatName(chat, currentUserUID),
-                            chatSnippet: controller.getChatSnippet(chat),
+                          profileUrl:
+                              getChatParticipant(chat, currentUserUID).avatar,
+                          chatName: getChatName(chat, currentUserUID),
+                          chatSnippet: controller.getChatSnippet(chat),
                         ),
                       );
                     },
