@@ -7,27 +7,15 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
 import 'package:dmsg/widgets/messages/text_message.dart';
 
-import '../helpers.dart';
 import '../chats_controller.dart';
 import '../models/message.dart' as model;
-import '../models/message.dart';
 import 'message_input.dart';
 
 class Chat extends GetView<ChatsController> {
-  // final chat = Rxn<model.Chat>();
-  final messages = RxList<Message>();
-  // final _loading = false.obs;
-  final title = RxString('');
-
   final authController = Get.find<AuthController>();
   final chatsController = Get.find<ChatsController>();
 
-  Chat() {
-    if (chatsController.targetChat.value != null) title.value = getChatName(chatsController.targetChat.value!, Get.find<AuthController>().user!.uid);
-    messages.value = chatsController.messages.value;
-  }
-
-  // bool get loading => _loading.value;
+  Chat({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -36,10 +24,10 @@ class Chat extends GetView<ChatsController> {
     return Obx(() {
       if (chatsController.targetChat.value == null){
         return const Center(child: Text("Select chat"),);
-      } else if (messages.value == null) {
+      } else if (chatsController.messages.value == null) {
         return const Center(child: CircularProgressIndicator(),);
       } else {
-        List<Widget> messagesList = messages.value.map((message) {
+        List<Widget> messagesList = chatsController.messages.value.map((message) {
           if (message is model.TextMessage) {
             if (getDirection(message, authController.user!.uid) == Direction.outgoing) {
               return OutgoingTextMessage(message: message);
@@ -67,7 +55,7 @@ class Chat extends GetView<ChatsController> {
                   padding: const EdgeInsets.all(16),
                   alignment: Alignment.centerLeft,
                   child: Text(
-                    title.value,
+                    chatsController.chatTitle.value,
                     style: Theme.of(context).textTheme.titleLarge,
                   ),
                 ),

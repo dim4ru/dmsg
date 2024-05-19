@@ -6,13 +6,17 @@ import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 
 import 'constants.dart';
+import 'helpers.dart';
 import 'models/message.dart';
 
 class ChatsController extends GetxController {
   final chats = RxList<Chat>();
   final messages = RxList<Message>();
   final noChats = false.obs;
+
   final targetChat = Rx<Chat?>(null);
+  final chatTitle = RxString('');
+
   final auth = Get.find<AuthController>();
   final _loading = false.obs;
 
@@ -44,8 +48,10 @@ class ChatsController extends GetxController {
     }
   }
 
-  Future getMessages() async {
+  Future getChatContent() async {
     if (targetChat.value != null) {
+      chatTitle.value = getChatName(targetChat.value!, auth.user!.uid);
+
       List<Message> messagesList = [];
       if (messagesList.isEmpty) {
         final resp = await http.get(Uri.parse(databaseUrl + '/chats.json?orderBy=%22chatId%22&equalTo=${targetChat.value!.chatId.toString()}'));
