@@ -15,9 +15,10 @@ class ChatsController extends GetxController {
   final noChats = false.obs;
 
   final targetChat = Rx<Chat?>(null);
+  final chatAvatar = RxnString(null);
   final chatTitle = RxString('');
 
-  final auth = Get.find<AuthController>();
+  final currentUserUID = Get.find<AuthController>().user!.uid;
   final _loading = false.obs;
 
   ChatsController() {
@@ -33,7 +34,7 @@ class ChatsController extends GetxController {
     final resp = await http.get(url);
     final List<dynamic> responseData = json.decode(resp.body);
     List<Chat> chatsList = responseData.map((userData) => Chat.fromJson(userData)).toList();
-    chats.value = chatsList.where((chat) => chat.participants.any((user) => user.uid == auth.user?.uid)).toList();
+    chats.value = chatsList.where((chat) => chat.participants.any((user) => user.uid == currentUserUID)).toList();
     if(chats.value.isEmpty) noChats(true);
   }
 
@@ -50,7 +51,8 @@ class ChatsController extends GetxController {
 
   Future getChatContent() async {
     if (targetChat.value != null) {
-      chatTitle.value = getChatName(targetChat.value!, auth.user!.uid);
+      chatAvatar.value = getChatParticipant(targetChat.value!, currentUserUID).avatar;
+      chatTitle.value = getChatName(targetChat.value!, currentUserUID);
 
       List<Message> messagesList = [];
       if (messagesList.isEmpty) {

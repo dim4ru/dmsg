@@ -24,7 +24,6 @@ class ChatsList extends GetView<ChatsController> {
                     itemCount: controller.chats.length,
                     itemBuilder: (BuildContext context, int index) {
                       Chat chat = controller.chats[index];
-                      String currentUserUID = controller.auth.user!.uid;
                       return GestureDetector(
                         onTap: () {
                           controller.targetChat.value = controller.chats[index];
@@ -32,8 +31,8 @@ class ChatsList extends GetView<ChatsController> {
                         },
                         child: ChatListItem(
                           profileUrl:
-                              getChatParticipant(chat, currentUserUID).avatar,
-                          chatName: getChatName(chat, currentUserUID),
+                              getChatParticipant(chat, controller.currentUserUID).avatar,
+                          chatName: getChatName(chat, controller.currentUserUID),
                           chatSnippet: controller.getChatSnippet(chat),
                         ),
                       );
