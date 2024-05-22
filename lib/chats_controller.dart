@@ -8,6 +8,7 @@ import 'package:http/http.dart' as http;
 import 'constants.dart';
 import 'helpers.dart';
 import 'models/message.dart';
+import 'models/user.dart';
 
 class ChatsController extends GetxController {
   final chats = RxList<Chat>();
@@ -19,6 +20,7 @@ class ChatsController extends GetxController {
   final chatTitle = RxString('');
 
   final currentUserUID = Get.find<AuthController>().user!.uid;
+  final chatParticipant = Rx<User?>(null);
   final _loading = false.obs;
 
   ChatsController() {
@@ -51,6 +53,9 @@ class ChatsController extends GetxController {
 
   Future getChatContent() async {
     if (targetChat.value != null) {
+      // TODO в конструкторе не присваивается, потому что targetChat = null
+      chatParticipant.value = getChatParticipant(targetChat.value!, currentUserUID);
+
       chatAvatar.value = getChatParticipant(targetChat.value!, currentUserUID).avatar;
       chatTitle.value = getChatName(targetChat.value!, currentUserUID);
 

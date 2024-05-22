@@ -95,7 +95,7 @@ class Chat extends GetView<ChatsController> {
                   ],
                 ),
               ),
-              MessageInput(),
+              if (chatsController.loading == false) MessageInput(),
             ],
           ),
         );

@@ -30,7 +30,7 @@ class MessageInput extends GetView<MessageInputController> {
               ),
               keyboardType: TextInputType.text,
               onChanged: (val) {
-                controller.newMessage.value = val;
+                controller.text.value = val;
               },
               validator: (value) {
                 if (value == null || value.isEmpty) {
@@ -40,7 +40,9 @@ class MessageInput extends GetView<MessageInputController> {
               },
             ),
           ),
-          IconButton(onPressed: (){}, icon: const Icon(Icons.send))
+          IconButton(onPressed: (){
+            controller.sendMessage();
+          }, icon: const Icon(Icons.send))
         ],
       ),
     );
