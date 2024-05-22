@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
 
-import 'message_input_controller.dart';
+import '../message_input_controller.dart';
 
 class MessageInput extends GetView<MessageInputController> {
   final controller = MessageInputController();
