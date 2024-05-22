@@ -73,7 +73,6 @@ class ChatsController extends GetxController {
           }
         }
       }
-      print(messagesList[0].timestamp);
       messages.value = messagesList;
     }
   }

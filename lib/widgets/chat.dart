@@ -7,6 +7,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
 import 'package:dmsg/widgets/messages/text_message.dart';
 import 'package:octo_image/octo_image.dart';
+import 'package:firebase_database/firebase_database.dart';
 
 import '../chats_controller.dart';
 import '../models/message.dart' as model;
@@ -20,7 +21,10 @@ class Chat extends GetView<ChatsController> {
 
   @override
   Widget build(BuildContext context) {
-
+    DatabaseReference dbRef = FirebaseDatabase.instance.ref().child('chats');
+    dbRef.onValue.listen((event) {
+      chatsController.getChatContent();
+    });
 
     return Obx(() {
       if (chatsController.targetChat.value == null){
