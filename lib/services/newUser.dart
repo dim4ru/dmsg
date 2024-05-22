@@ -21,8 +21,8 @@ Future<void> addUser(String uid) async {
   );
 
   if (response.statusCode == 200) {
-    print('Новый пользователь успешно добавлен.');
+    print('New user added (uid: $uid)');
   } else {
-    print('Не удалось добавить нового пользователя.');
+    print("Cooldn't add new user (uid: $uid");
   }
 }

@@ -41,7 +41,7 @@ class MessageInput extends GetView<MessageInputController> {
             ),
           ),
           IconButton(onPressed: (){
-            controller.sendMessage();
+            controller.addMessage();
           }, icon: const Icon(Icons.send))
         ],
       ),
