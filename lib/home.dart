@@ -18,6 +18,7 @@ class Home extends GetView {
           actions: [
             TextButton(
                 onPressed: () async {
+                  Get.to(() => SignIn());
                   dynamic result = await auth.signOut();
                   if (result is String) {
                     ScaffoldMessenger.of(context).showSnackBar(
@@ -31,7 +32,6 @@ class Home extends GetView {
                           content: Text('You have signed out successfully')),
                     );
                     Get.deleteAll(force: true);
-                    Get.to(() => SignIn());
                   }
                 },
                 child: Text("Sign out"))

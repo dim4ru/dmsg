@@ -14,7 +14,7 @@ class ChatListItem extends GetWidget {
     return ListTile(
       leading: ProfilePicture(url: profileUrl,),
       title: Text(chatName),
-      subtitle: Text(chatSnippet),
+      // subtitle: Text(chatSnippet),
       tileColor: Theme.of(context).colorScheme.secondary,
     );
   }
