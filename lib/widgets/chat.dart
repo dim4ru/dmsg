@@ -93,9 +93,10 @@ class Chat extends GetView<ChatsController> {
               ),
               Expanded(
                 child: ListView(
+                  reverse: true,
                   children: [
                     SizedBox(height: messageBubbleChatMargin), // Add this line
-                    ...messagesList.map((message) => message).toList(), // Replace ... with your actual list items
+                    ...messagesList.map((message) => message).toList().reversed.toList(), // Replace ... with your actual list items
                   ],
                 ),
               ),
