@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../../models/message.dart' as model;
 
 import '../../constants.dart';
-import 'messageTimestamp.dart';
+import 'message_timestamp.dart';
 
 abstract class TextMessage extends StatelessWidget {
   const TextMessage({Key? key, required this.message}) : super(key: key);

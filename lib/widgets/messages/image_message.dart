@@ -1,6 +1,6 @@
 
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:dmsg/widgets/messages/messageTimestamp.dart';
+import 'package:dmsg/widgets/messages/message_timestamp.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:octo_image/octo_image.dart';
