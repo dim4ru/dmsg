@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 
 import '../../constants.dart';
+import '../../helpers.dart';
 
 class MessageTimestamp extends StatelessWidget {
   final DateTime timestamp;
@@ -19,13 +19,5 @@ class MessageTimestamp extends StatelessWidget {
         ),
         child: Text(dateTimeToTimeString(timestamp), style: TextStyle(fontSize: 10),)
     );
-  }
-
-  String dateTimeToTimeString(DateTime dateTime) {
-    return DateFormat('HH:mm').format(dateTime);
-  }
-
-  String dateTimeToTimeLongString(DateTime dateTime) {
-    return DateFormat('HH:mm:ss dd.MM.yyyy').format(dateTime);
   }
 }
