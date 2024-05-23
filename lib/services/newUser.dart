@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'dart:math';
 import 'package:http/http.dart' as http;
 
-import '../constants.dart';
+import '../../constants.dart';
 
 Future<void> addUser(String uid) async {
   final addUserUrl = '$databaseUrl/users.json';

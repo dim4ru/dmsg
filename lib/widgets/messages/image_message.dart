@@ -1,13 +1,13 @@
 
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:dmsg/widgets/messages/messageTimestamp.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:octo_image/octo_image.dart';
 
+import '../../constants.dart';
 import '../../models/message.dart' as model;
 
-import '../constants.dart';
 
 abstract class ImageMessage extends StatelessWidget {
   const ImageMessage({Key? key, required this.message}) : super(key: key);
@@ -52,7 +52,7 @@ class IncomingImageMessage extends ImageMessage {
           ),
           Padding(
             padding: const EdgeInsets.only(left: 5),
-            child: Text(dateTimeToTimeString(message.timestamp), style: TextStyle(fontSize: 10),),
+            child: MessageTimestamp(timestamp: message.timestamp,),
           )
         ],
       ),
@@ -72,7 +72,7 @@ class OutgoingImageMessage extends ImageMessage {
           Spacer(),
           Padding(
             padding: const EdgeInsets.only(right: 5),
-            child: Text(dateTimeToTimeString(message.timestamp), style: TextStyle(fontSize: 10),),
+            child: MessageTimestamp(timestamp: message.timestamp,),
           ),
           GestureDetector(
             // onLongPress: () => messageController.deleteMessage(message.id),
@@ -104,8 +104,4 @@ class OutgoingImageMessage extends ImageMessage {
       ),
     );
   }
-}
-
-String dateTimeToTimeString(DateTime dateTime) {
-  return DateFormat('HH:mm').format(dateTime);
 }

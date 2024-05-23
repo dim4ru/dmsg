@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import '../../models/message.dart' as model;
 
-import '../constants.dart';
+import '../../constants.dart';
+import 'messageTimestamp.dart';
 
 abstract class TextMessage extends StatelessWidget {
   const TextMessage({Key? key, required this.message}) : super(key: key);
@@ -39,7 +39,7 @@ class IncomingTextMessage extends TextMessage {
           ),
           Padding(
             padding: const EdgeInsets.only(left: 5),
-            child: Text(dateTimeToTimeString(message.timestamp), style: const TextStyle(fontSize: 10),),
+            child: MessageTimestamp(timestamp: message.timestamp,),
           )
         ],
       ),
@@ -59,7 +59,7 @@ class OutgoingTextMessage extends TextMessage {
           Spacer(),
           Padding(
             padding: const EdgeInsets.only(right: 5),
-            child: Text(dateTimeToTimeString(message.timestamp), style: const TextStyle(fontSize: 10),),
+            child: MessageTimestamp(timestamp: message.timestamp,),
           ),
           GestureDetector(
             // onLongPress: () => messageController.deleteMessage(message.id),
@@ -82,8 +82,4 @@ class OutgoingTextMessage extends TextMessage {
       ),
     );
   }
-}
-
-String dateTimeToTimeString(DateTime dateTime) {
-  return DateFormat('HH:mm').format(dateTime);
 }

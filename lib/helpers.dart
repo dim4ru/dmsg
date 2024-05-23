@@ -1,5 +1,15 @@
+import 'package:intl/intl.dart';
+
 import 'models/chat.dart';
 import 'models/user.dart';
+
+String dateTimeToTimeString(DateTime dateTime) {
+  return DateFormat('HH:mm').format(dateTime);
+}
+
+String dateTimeToTimeLongString(DateTime dateTime) {
+  return DateFormat('HH:mm:ss dd.MM.yyyy').format(dateTime);
+}
 
 String getChatName(Chat chat, String currentUserUID) {
   var participants = chat.participants

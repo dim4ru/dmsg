@@ -15,7 +15,9 @@ class Home extends GetView {
         appBar: AppBar(
           automaticallyImplyLeading: false,
           title: Text(auth.user != null ? auth.user!.uid : "null uid error"),
+          // title: Text("DMSG – Free Messanger"),
           actions: [
+            IconButton(onPressed: (){}, icon: const Icon(Icons.add_comment_outlined), tooltip: "Find user & write message",),
             TextButton(
                 onPressed: () async {
                   Get.to(() => SignIn());

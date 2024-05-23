@@ -15,7 +15,7 @@ class MessageInput extends GetView<MessageInputController> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          IconButton(onPressed: (){}, icon: const Icon(Icons.add)),
+          // IconButton(onPressed: (){}, icon: const Icon(Icons.mms_outlined)),
           Container(
             width: MediaQuery.sizeOf(context).width * 0.67,
             margin: EdgeInsets.only(bottom: 1, left: 10, right: 10),

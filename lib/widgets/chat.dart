@@ -10,8 +10,8 @@ import 'package:octo_image/octo_image.dart';
 import 'package:firebase_database/firebase_database.dart';
 
 import '../chats_controller.dart';
+import '../constants.dart';
 import '../models/message.dart' as model;
-import 'constants.dart';
 import 'message_input.dart';
 
 class Chat extends GetView<ChatsController> {
