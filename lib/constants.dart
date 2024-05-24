@@ -11,6 +11,6 @@ const double messageImageRadius = 12.0;
 const double messageImageWidth = 0.15;
 const double messageImageAspectRatio = 4 / 3;
 
-const Color timestampTooltipBackground = Color.fromRGBO(217, 213, 217, 0.8);
+const Color timestampTooltipBackground = Color.fromRGBO(0, 0, 0, 0.8);
 
 const String databaseUrl = 'https://dmsg-1d1c5-default-rtdb.europe-west1.firebasedatabase.app';

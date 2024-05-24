@@ -31,10 +31,10 @@ class MyApp extends GetView {
 
     return GetMaterialApp(
       title: 'Chats - DMSG',
-        theme: ThemeData.dark().copyWith(
-            colorScheme: ThemeData.dark()
+        theme: ThemeData.light().copyWith(
+            colorScheme: ThemeData.light()
                 .colorScheme
-                .copyWith(primary: Color(0xff16E098), secondary: Color(0xff084E35))),
+                .copyWith(primary: Color(0xff16E098), secondary: Color(0xff9cb8ae))),
       home: Obx(() {
         if (Get.find<AuthController>().loading) {
           return Center(child: CircularProgressIndicator());
