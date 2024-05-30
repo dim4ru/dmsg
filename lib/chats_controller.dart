@@ -21,6 +21,7 @@ class ChatsController extends GetxController {
 
   final currentUserUID = Get.find<AuthController>().user!.uid;
   final chatParticipant = Rx<User?>(null);
+  final participatingIn = [1, 2].obs;
   final _loading = false.obs;
 
   ChatsController() {
@@ -32,12 +33,15 @@ class ChatsController extends GetxController {
   bool get loading => _loading.value;
 
   Future getChats() async {
-    final url = Uri.https("dmsg-1d1c5-default-rtdb.europe-west1.firebasedatabase.app", "chats.json");
-    final resp = await http.get(url);
-    final List<dynamic> responseData = json.decode(resp.body);
-    List<Chat> chatsList = responseData.map((userData) => Chat.fromJson(userData)).toList();
-    chats.value = chatsList.where((chat) => chat.participants.any((user) => user.uid == currentUserUID)).toList();
-    if(chats.value.isEmpty) noChats(true);
+    for (int chatId in participatingIn.value) {
+      final url = Uri.https("dmsg-1d1c5-default-rtdb.europe-west1.firebasedatabase.app", "chats/${chatId-1}.json");
+      final resp = await http.get(url);
+      final Map<String, dynamic> responseData = json.decode(resp.body);
+      chats.value.add(Chat.fromJson(responseData));
+    }
+    // final url = Uri.https("dmsg-1d1c5-default-rtdb.europe-west1.firebasedatabase.app", "chats/${targetChat.value!.chatId-1}.json");
+    // chats.value = chatsList.where((chat) => chat.participants.any((user) => user.uid == currentUserUID)).toList();
+    // if(chats.value.isEmpty) noChats(true);
   }
 
   String getChatSnippet(Chat chat) {
