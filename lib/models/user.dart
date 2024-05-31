@@ -8,8 +8,9 @@ class User {
   String uid;
   String? avatar;
   String username;
+  Map<dynamic, dynamic>? participatingIn;
 
-  User({required this.uid, this.avatar,required this.username});
+  User({required this.uid, this.avatar,required this.username, this.participatingIn});
 
   factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
 
