@@ -22,7 +22,7 @@ class ChatsController extends GetxController {
   final currentUserUID = Get.find<AuthController>().user!.uid;
   final currentUser = Rx<User?>(null);
   final chatParticipant = Rx<User?>(null);
-  final participatingIn = <int>[].obs;
+  final participatingIn = <String>[].obs;
   final _loading = false.obs;
 
   ChatsController() {
@@ -58,21 +58,17 @@ class ChatsController extends GetxController {
       print("Error: $e");
     }
 
+    participatingIn.value = currentUser.value!.participatingIn!.keys.toList();
+    print(participatingIn.value);
 
-    print(currentUser.value?.participatingIn);
-    participatingIn.value = [1,2]; // TODO get chatIds from User profile
-
-    for (int chatId in participatingIn.value) {
-      if (chatId > 0){
-        final url = Uri.https("dmsg-1d1c5-default-rtdb.europe-west1.firebasedatabase.app", "chats/${chatId-1}.json");
-        final resp = await http.get(url);
-        final Map<String, dynamic> responseData = json.decode(resp.body);
-        chats.value.add(Chat.fromJson(responseData));
-      }
-    }
-    // final url = Uri.https("dmsg-1d1c5-default-rtdb.europe-west1.firebasedatabase.app", "chats/${targetChat.value!.chatId-1}.json");
-    // chats.value = chatsList.where((chat) => chat.participants.any((user) => user.uid == currentUserUID)).toList();
-    // if(chats.value.isEmpty) noChats(true);
+    participatingIn.value.forEach((value) async {
+      print(value);
+      final url = Uri.https("dmsg-1d1c5-default-rtdb.europe-west1.firebasedatabase.app", "chats/1.json");
+      final resp = await http.get(url);
+      print(resp.statusCode);
+      final Map<String, dynamic> responseData = json.decode(resp.body);
+      chats.value.add(Chat.fromJson(responseData));
+    });
   }
 
   String getChatSnippet(Chat chat) {
