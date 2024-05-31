@@ -33,7 +33,7 @@ class ChatsList extends GetView<ChatsController> {
                           profileUrl:
                               getChatParticipant(chat, controller.currentUserUID).avatar,
                           chatName: getChatName(chat, controller.currentUserUID),
-                          chatSnippet: controller.getChatSnippet(chat),
+                          chatSnippet: "",
                         ),
                       );
                     },

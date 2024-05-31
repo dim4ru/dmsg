@@ -35,55 +35,27 @@ class ChatsController extends GetxController {
 
   Future getChats() async {
     final url = Uri.parse('https://dmsg-1d1c5-default-rtdb.europe-west1.firebasedatabase.app/users.json?orderBy=%22uid%22&equalTo=%22jktIhqbjBcUU3Ys4GOgtDASOSPx2%22');
-    try {
-      final resp = await http.get(url);
+    final resp = await http.get(url);
+    final Map<String, dynamic> responseData = json.decode(resp.body);
+    final userData = responseData.values.first;
+    final user = User.fromJson(userData);
+    currentUser.value = user;
 
-      // Ensure response is valid JSON
-      if (resp.statusCode == 200) {
-        final Map<String, dynamic> responseData = json.decode(resp.body);
-
-        // Extract the first user object from the map
-        if (responseData.isNotEmpty) {
-          final userData = responseData.values.first;
-          final user = User.fromJson(userData);
-          currentUser.value = user;
-        } else {
-          print("No user found with the given UID.");
-        }
-      } else {
-        print("Failed to load data. Status code: ${resp.statusCode}");
-      }
-    } catch (e) {
-      // print("Erro: $e");
-    }
-
-    participatingIn.value = (currentUser.value!.participatingIn!.keys.toList().map((key) => key.substring(1, key.length - 1))).map(int.parse).toList();
-    print(participatingIn.value);
-
+    participatingIn.value = (currentUser.value!.participatingIn!.keys
+            .toList()
+            .map((key) => key.substring(1, key.length - 1)))
+        .map(int.parse)
+        .toList();
       participatingIn.value.forEach((value) async {
         final url = Uri.https("dmsg-1d1c5-default-rtdb.europe-west1.firebasedatabase.app", "chats/${value-1}.json");
-        print(url);
         final resp = await http.get(url);
-        print(resp.body);
         final Map<String, dynamic> responseData = json.decode(resp.body);
         chats.value.add(Chat.fromJson(responseData));
       });
   }
 
-  String getChatSnippet(Chat chat) {
-    Message lastMessage = chat.messages[0];
-    if (lastMessage is TextMessage) {
-      return lastMessage.text;
-    } else if (lastMessage is ImageMessage) {
-      return "Image";
-    } else {
-      return "Some message";
-    }
-  }
-
   Future getChatContent() async {
     if (targetChat.value != null) {
-      // TODO в конструкторе не присваивается, потому что targetChat = null
       chatParticipant.value = getChatParticipant(targetChat.value!, currentUserUID);
 
       chatAvatar.value = getChatParticipant(targetChat.value!, currentUserUID).avatar;
