@@ -22,7 +22,7 @@ class ChatsController extends GetxController {
   final currentUserUID = Get.find<AuthController>().user!.uid;
   final currentUser = Rx<User?>(null);
   final chatParticipant = Rx<User?>(null);
-  final participatingIn = <String>[].obs;
+  final participatingIn = <int>[].obs;
   final _loading = false.obs;
 
   ChatsController() {
@@ -45,7 +45,6 @@ class ChatsController extends GetxController {
         // Extract the first user object from the map
         if (responseData.isNotEmpty) {
           final userData = responseData.values.first;
-          print(userData);
           final user = User.fromJson(userData);
           currentUser.value = user;
         } else {
@@ -55,20 +54,20 @@ class ChatsController extends GetxController {
         print("Failed to load data. Status code: ${resp.statusCode}");
       }
     } catch (e) {
-      print("Error: $e");
+      // print("Erro: $e");
     }
 
-    participatingIn.value = currentUser.value!.participatingIn!.keys.toList();
+    participatingIn.value = (currentUser.value!.participatingIn!.keys.toList().map((key) => key.substring(1, key.length - 1))).map(int.parse).toList();
     print(participatingIn.value);
 
-    participatingIn.value.forEach((value) async {
-      print(value);
-      final url = Uri.https("dmsg-1d1c5-default-rtdb.europe-west1.firebasedatabase.app", "chats/1.json");
-      final resp = await http.get(url);
-      print(resp.statusCode);
-      final Map<String, dynamic> responseData = json.decode(resp.body);
-      chats.value.add(Chat.fromJson(responseData));
-    });
+      participatingIn.value.forEach((value) async {
+        final url = Uri.https("dmsg-1d1c5-default-rtdb.europe-west1.firebasedatabase.app", "chats/${value-1}.json");
+        print(url);
+        final resp = await http.get(url);
+        print(resp.body);
+        final Map<String, dynamic> responseData = json.decode(resp.body);
+        chats.value.add(Chat.fromJson(responseData));
+      });
   }
 
   String getChatSnippet(Chat chat) {
