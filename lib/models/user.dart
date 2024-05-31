@@ -8,7 +8,7 @@ class User {
   String uid;
   String? avatar;
   String username;
-  Map<dynamic, dynamic>? participatingIn;
+  Map<String, bool>? participatingIn;
 
   User({required this.uid, this.avatar,required this.username, this.participatingIn});
 

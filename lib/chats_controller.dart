@@ -20,6 +20,7 @@ class ChatsController extends GetxController {
   final chatTitle = RxString('');
 
   final currentUserUID = Get.find<AuthController>().user!.uid;
+  final currentUser = Rx<User?>(null);
   final chatParticipant = Rx<User?>(null);
   final participatingIn = <int>[].obs;
   final _loading = false.obs;
@@ -33,8 +34,33 @@ class ChatsController extends GetxController {
   bool get loading => _loading.value;
 
   Future getChats() async {
+    final url = Uri.parse('https://dmsg-1d1c5-default-rtdb.europe-west1.firebasedatabase.app/users.json?orderBy=%22uid%22&equalTo=%22jktIhqbjBcUU3Ys4GOgtDASOSPx2%22');
+    try {
+      final resp = await http.get(url);
+
+      // Ensure response is valid JSON
+      if (resp.statusCode == 200) {
+        final Map<String, dynamic> responseData = json.decode(resp.body);
+
+        // Extract the first user object from the map
+        if (responseData.isNotEmpty) {
+          final userData = responseData.values.first;
+          print(userData);
+          final user = User.fromJson(userData);
+          currentUser.value = user;
+        } else {
+          print("No user found with the given UID.");
+        }
+      } else {
+        print("Failed to load data. Status code: ${resp.statusCode}");
+      }
+    } catch (e) {
+      print("Error: $e");
+    }
+
+
+    print(currentUser.value?.participatingIn);
     participatingIn.value = [1,2]; // TODO get chatIds from User profile
-    print(participatingIn.value.length);
 
     for (int chatId in participatingIn.value) {
       if (chatId > 0){

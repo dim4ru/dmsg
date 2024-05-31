@@ -10,7 +10,9 @@ User _$UserFromJson(Map<String, dynamic> json) => User(
       uid: json['uid'] as String,
       avatar: json['avatar'] as String?,
       username: json['username'] as String,
-      participatingIn: json['participatingIn'] as Map<String, dynamic>?,
+      participatingIn: (json['participatingIn'] as Map<String, dynamic>?)?.map(
+        (k, e) => MapEntry(k, e as bool),
+      ),
     );
 
 Map<String, dynamic> _$UserToJson(User instance) => <String, dynamic>{
