@@ -1,16 +1,14 @@
-# dmsg
+# DMSG - веб-приложение мессенджера на Flutter
+## Стек
+- Flutter
+- GetX
+- Firebase (Realtime Database & Firebase Authentication)
+- json_annotation
+## Принцип работы приложения
+Пользователь регистрируется и авторизуется с помощью адреса электронной почты и пароля, затем перенаправляется на главный экран мессенджера, где он может выбрать собеседника открыть диалог с ним и далее может написать этому собеседнику сообщение и просмотреть историю их диалога.
 
-Flutter Web application for a simple messager
+### Экран авторизации
+![Экран авторизации с демонстрацией валидации](https://i.imgur.com/0GkWlBi.png)
 
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+### Главный экран мессенджера с открытым диалогом
+![Главный экран мессенджера с открытым диалогом](https://i.imgur.com/xyIO8yt.jpeg)
